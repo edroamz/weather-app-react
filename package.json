@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --config webpack.config.dev.js",
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "develop": "webpack --config webpack.config.dev.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   },
   "homepage": "https://github.com/edroamz/weather-app-react#readme",
   "dependencies": {
+    "normalize.css": "^8.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
@@ -29,8 +31,16 @@
     "@babel/preset-react": "^7.13.13",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "css-loader": "^5.2.2",
+    "css-minimizer-webpack-plugin": "^2.0.0",
     "html-loader": "^2.1.2",
     "html-webpack-plugin": "^5.3.1",
+    "mini-css-extract-plugin": "^1.5.0",
+    "postcss": "^8.2.10",
+    "postcss-loader": "^5.2.0",
+    "postcss-preset-env": "^6.7.0",
+    "sass": "^1.32.10",
+    "sass-loader": "^11.0.1",
     "terser-webpack-plugin": "^5.1.1",
     "webpack": "^5.33.2",
     "webpack-cli": "^4.6.0",

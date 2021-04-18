@@ -1,0 +1,16 @@
+:root {
+  --mainBg: #ddd;
+}
+
+$text-color: #000;
+
+body {
+  background-color: var(--mainBg);
+  color: $text-color;
+}
+
+.main-background {
+  background: linear-gradient(to top, purple, navy);
+  height: 50px;
+  width: 100%;
+}
