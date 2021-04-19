@@ -63,7 +63,6 @@ export default function hourlySummary() {
                 key={index}
                 className="flex-1"
                 style={{
-                  marginRight: "10px",
                   borderRight: "1px solid #ddd",
                 }}
               >
@@ -73,10 +72,13 @@ export default function hourlySummary() {
                     alignItems: "center",
                     justifyContent: "flex-start",
                     gridRowGap: "5px",
+                    width: "100%",
+                    gridTemplateColumns: "1fr",
                   }}
                 >
                   <div>
                     <Sunny
+                      className="mx-auto"
                       style={{
                         height: "32px",
                         width: "32px",
