@@ -17,6 +17,7 @@ module.exports = {
     alias: {
       "@components": path.resolve(__dirname, "src/components/"),
       "@styles": path.resolve(__dirname, "src/styles/"),
+      "@svgs": path.resolve(__dirname, "src/assets/svg/"),
     },
   },
   mode: "production",
@@ -41,6 +42,10 @@ module.exports = {
           "sass-loader",
           "postcss-loader",
         ],
+      },
+      {
+        test: /\.svg$/,
+        use: ["@svgr/webpack"],
       },
     ],
   },
