@@ -54,7 +54,7 @@ export default function hourlySummary() {
   ];
 
   return (
-    <div className="container mx-auto h-full" style={{ padding: "30px 0" }}>
+    <div className="container mx-auto h-full" style={{ padding: "4em 0" }}>
       <div className="flex">
         {hours &&
           hours.map((i, index) => {
@@ -63,7 +63,7 @@ export default function hourlySummary() {
                 key={index}
                 className="flex-1"
                 style={{
-                  borderRight: "1px solid #ddd",
+                  borderRight: "1px solid #eaeaea",
                 }}
               >
                 <div
@@ -76,23 +76,26 @@ export default function hourlySummary() {
                     gridTemplateColumns: "1fr",
                   }}
                 >
+                  <div
+                    className="flex--center"
+                    style={{ textAlign: "center", fontWeight: 700 }}
+                  >
+                    {i.hour}:00
+                  </div>
                   <div>
                     <Sunny
                       className="mx-auto"
                       style={{
                         height: "32px",
                         width: "32px",
-                        strokeWidth: 16,
+                        strokeWidth: 12,
                       }}
                     ></Sunny>
                   </div>
                   <div
                     className="flex--center"
-                    style={{ textAlign: "center", fontWeight: 500 }}
+                    style={{ textAlign: "center", fontWeight: 300 }}
                   >
-                    {i.hour}
-                  </div>
-                  <div className="flex--center" style={{ textAlign: "center" }}>
                     {i.temperature}°
                   </div>
                 </div>

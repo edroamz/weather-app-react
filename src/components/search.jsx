@@ -3,7 +3,7 @@ import SearchIcon from "@svgs/search-outline.svg";
 
 export default function search() {
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto" style={{ padding: "3em 0 0 0" }}>
       <div
         className="search mx-auto"
         style={{ position: "relative", width: "590px" }}

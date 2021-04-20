@@ -8,11 +8,13 @@ import Footer from "@components/footer.jsx";
 
 const App = () => (
   <div>
-    <Search></Search>
-    <Currently></Currently>
+    <div className="bg-light-grey">
+      <Search></Search>
+      <Currently></Currently>
+    </div>
     <HourlySummary></HourlySummary>
-    <DailyForecast></DailyForecast>
     <Map></Map>
+    <DailyForecast></DailyForecast>
     <Footer></Footer>
   </div>
 );
