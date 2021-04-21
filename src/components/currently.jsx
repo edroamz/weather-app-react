@@ -1,54 +1,64 @@
 import React from "react";
-import Sunny from "@svgs/sunny-outline.svg";
+import Sunny from "@svgs/cloudy-night-outline.svg";
 
 export default function currently() {
   return (
-    <div className="container mx-auto h-full" style={{ padding: "3em 0" }}>
-      <div
-        style={{
-          display: "grid",
-          textAlign: "center",
-          justifyContent: "center",
-          gridTemplateColumns: "auto 1fr",
-          maxWidth: "400px",
-          margin: "0 auto",
-          gridColumnGap: "25px",
-        }}
-      >
-        <div className="flex--center">
-          <Sunny
-            style={{
-              height: "72px",
-              width: "72px",
-              strokeWidth: 24,
-            }}
-          ></Sunny>
-        </div>
-        <div style={{ display: "grid", rowGap: "10px", textAlign: "left" }}>
-          <h2
-            style={{ fontSize: "2.85rem", fontWeight: 700, lineHeight: 1.25 }}
-          >
-            27°{" "}
-            <span
-              style={{ fontSize: "1.9rem", lineHeight: 1.25, fontWeight: 700 }}
+    <section>
+      <div className="container mx-auto h-full" style={{ padding: "4em 0" }}>
+        <div
+          style={{
+            display: "grid",
+            textAlign: "center",
+            justifyContent: "center",
+            gridTemplateColumns: "1fr",
+            margin: "0 auto",
+            rowGap: "25px",
+          }}
+        >
+          <div className="flex--center">
+            <Sunny
+              style={{
+                height: "38px",
+                width: "38px",
+                strokeWidth: 24,
+                color: "#0076ff",
+              }}
+            ></Sunny>
+          </div>
+          <div style={{ display: "grid", rowGap: "15px", textAlign: "left" }}>
+            <h2
+              style={{
+                fontSize: "2rem",
+                fontWeight: 500,
+                lineHeight: 1.25,
+                textAlign: "center",
+              }}
             >
-              Clear sky.
-            </span>
-          </h2>
+              27° Clear sky.
+            </h2>
 
-          <div className="flex" style={{ fontSize: "0.9em" }}>
-            <div className="flex-1">
-              <strong>High:</strong> 23°
-            </div>
-            <div className="flex-1">
-              <strong>Low:</strong> 20°
-            </div>
-            <div className="flex-1">
-              <strong>Feels like:</strong> 27°
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "auto auto auto",
+                columnGap: "2.5em",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <div style={{ fontWeight: 300 }}>
+                <span style={{ fontWeight: 500 }}>High:</span> 23°
+              </div>
+              <div style={{ fontWeight: 300 }}>
+                <span style={{ fontWeight: 500 }}>Low:</span> 20°
+              </div>
+              <div style={{ fontWeight: 300 }}>
+                <span style={{ fontWeight: 500 }}>Feels like:</span> 27°
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

@@ -54,7 +54,7 @@ export default function hourlySummary() {
   ];
 
   return (
-    <div className="container mx-auto h-full" style={{ padding: "4em 0" }}>
+    <div className="container mx-auto h-full" style={{ padding: "3em 0" }}>
       <div className="flex">
         {hours &&
           hours.map((i, index) => {
@@ -71,7 +71,7 @@ export default function hourlySummary() {
                     display: "grid",
                     alignItems: "center",
                     justifyContent: "flex-start",
-                    gridRowGap: "5px",
+                    gridRowGap: "10px",
                     width: "100%",
                     gridTemplateColumns: "1fr",
                   }}
@@ -88,7 +88,8 @@ export default function hourlySummary() {
                       style={{
                         height: "32px",
                         width: "32px",
-                        strokeWidth: 12,
+                        strokeWidth: 24,
+                        color: "#666",
                       }}
                     ></Sunny>
                   </div>
