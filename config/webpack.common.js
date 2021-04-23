@@ -5,18 +5,18 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
   entry: "./src/index.js",
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js",
+    path: path.resolve(__dirname, "../dist"),
+    filename: "[name].[contenthash].js",
+    publicPath: "",
   },
   resolve: {
-    extensions: [".js", ".jsx"],
+    extensions: [".js", ".jsx", ".json"],
     alias: {
-      "@components": path.resolve(__dirname, "src/components/"),
-      "@styles": path.resolve(__dirname, "src/styles/"),
-      "@svgs": path.resolve(__dirname, "src/assets/svg/"),
+      "@components": path.resolve(__dirname, "../src/components/"),
+      "@styles": path.resolve(__dirname, "../src/styles/"),
+      "@svgs": path.resolve(__dirname, "../src/assets/svg/"),
     },
   },
-  mode: "development",
   module: {
     rules: [
       {
@@ -31,13 +31,8 @@ module.exports = {
         use: [{ loader: "html-loader" }],
       },
       {
-        test: /\.(s[ac]|c)ss$/i,
-        use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader",
-          "sass-loader",
-          "postcss-loader",
-        ],
+        type: "asset",
+        test: /\.(png|jpg|jpeg|gif)$/i,
       },
       {
         test: /\.svg$/,
@@ -45,20 +40,15 @@ module.exports = {
       },
     ],
   },
-  devtool: "source-map",
   plugins: [
     new HtmlWebpackPlugin({
+      inject: true,
       template: "./public/index.html",
       filename: "./index.html",
+      favicon: "./favicon.svg",
     }),
     new MiniCssExtractPlugin({
-      filename: "[name].css",
+      filename: "[name].[contenthash].css",
     }),
   ],
-  devServer: {
-    contentBase: path.join(__dirname, "dist"),
-    compress: true,
-    port: 3006,
-    open: true,
-  },
 };

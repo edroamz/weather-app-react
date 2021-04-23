@@ -1,20 +1,18 @@
 import React from "react";
-import Header from "@components/header.jsx";
 import Search from "@components/search.jsx";
-import HourlySummary from "@components/hourlySummary.jsx";
+import HourlyForecast from "@components/hourlyForecast.jsx";
 import DailyForecast from "@components/dailyForecast.jsx";
 import Map from "@components/map.jsx";
-import Currently from "@components/currently.jsx";
+import CurrentlyWeather from "@components/currentlyWeather.jsx";
 import Footer from "@components/footer.jsx";
 
 const App = () => (
   <>
-    <Header></Header>
     <main>
       <Search></Search>
-      <Currently></Currently>
-      <section style={{ borderTop: "1px solid #eaeaea" }}>
-        <HourlySummary></HourlySummary>
+      <CurrentlyWeather></CurrentlyWeather>
+      <section>
+        <HourlyForecast></HourlyForecast>
       </section>
       <Map></Map>
       <DailyForecast></DailyForecast>

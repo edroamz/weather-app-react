@@ -42,7 +42,7 @@ export default function dailyForecast() {
 
   return (
     <section>
-      <div className="container mx-auto h-full" style={{ padding: "4em 0" }}>
+      <div className="container mx-auto h-full" style={{ padding: "5em 0" }}>
         <div
           className=""
           style={{
@@ -67,19 +67,19 @@ export default function dailyForecast() {
                     className="flex"
                     style={{
                       flexDirection: "column",
-                      border: "1px solid rgb(229 229 229)",
-                      borderRadius: "6px",
+                      border: "1px solid rgb(196, 207, 214)",
+                      borderRadius: "8px",
                     }}
                   >
                     <div
                       className="flex-auto flex--center"
-                      style={{ borderBottom: "1px solid #eee" }}
+                      style={{ borderBottom: "1px solid rgb(196, 207, 214)" }}
                     >
                       <h3
                         className="flex-auto"
                         style={{
                           textAlign: "center",
-                          fontWeight: 700,
+                          fontWeight: 500,
                           padding: "15px 0",
                         }}
                       >

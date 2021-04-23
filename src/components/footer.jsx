@@ -7,7 +7,7 @@ export default function footer() {
       style={{ borderTop: "1px solid #eaeaea" }}
     >
       <div>
-        <div className="container mx-auto h-full" style={{ padding: "4em 0" }}>
+        <div className="container mx-auto h-full" style={{ padding: "5em 0" }}>
           <div
             style={{
               display: "grid",

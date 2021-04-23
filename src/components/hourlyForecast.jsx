@@ -1,5 +1,5 @@
 import React from "react";
-import Sunny from "@svgs/sunny-outline.svg";
+import Sunny from "@svgs/cloudy-night-outline.svg";
 
 export default function hourlySummary() {
   const hours = [
@@ -54,7 +54,7 @@ export default function hourlySummary() {
   ];
 
   return (
-    <div className="container mx-auto h-full" style={{ padding: "3em 0" }}>
+    <div className="container mx-auto h-full" style={{ padding: "5em 0" }}>
       <div className="flex">
         {hours &&
           hours.map((i, index) => {
@@ -71,16 +71,21 @@ export default function hourlySummary() {
                     display: "grid",
                     alignItems: "center",
                     justifyContent: "flex-start",
-                    gridRowGap: "10px",
+                    gridRowGap: "15px",
                     width: "100%",
                     gridTemplateColumns: "1fr",
                   }}
                 >
                   <div
                     className="flex--center"
-                    style={{ textAlign: "center", fontWeight: 700 }}
+                    style={{
+                      textAlign: "center",
+                      fontWeight: 400,
+                      color: "#666",
+                      fontSize: "0.9em",
+                    }}
                   >
-                    {i.hour}:00
+                    {i.hour}
                   </div>
                   <div>
                     <Sunny
@@ -89,13 +94,16 @@ export default function hourlySummary() {
                         height: "32px",
                         width: "32px",
                         strokeWidth: 24,
-                        color: "#666",
                       }}
                     ></Sunny>
                   </div>
                   <div
                     className="flex--center"
-                    style={{ textAlign: "center", fontWeight: 300 }}
+                    style={{
+                      textAlign: "center",
+                      fontWeight: 500,
+                      fontSize: "1.1em",
+                    }}
                   >
                     {i.temperature}°
                   </div>

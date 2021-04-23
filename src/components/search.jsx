@@ -19,7 +19,7 @@ export default function search() {
                 top: "50%",
                 transform: "translateY(-50%)",
                 marginLeft: "15px",
-                color: "#6D6D6D",
+                color: "rgb(91, 112, 131)",
               }}
             ></SearchIcon>
           </i>

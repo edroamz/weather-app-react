@@ -1,17 +1,39 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap");
+
+$font-sans: "Inter", sans-serif;
 
 $main-bg: #fff;
 $text-color: #000;
 $light-grey: #fafafa;
 
-* {
+$accents-1: #fafafa;
+$accents-2: #eaeaea;
+$accents-3: #999;
+$accents-4: #888;
+$accents-5: #666;
+$accents-6: #444;
+$accents-7: #333;
+$accents-8: #111;
+
+html {
   box-sizing: border-box;
+  height: 100%;
 }
 
-body {
+body,
+html {
   background-color: $main-bg;
   color: $text-color;
-  font-family: "Roboto", sans-serif;
+  font-family: $font-sans;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+:after,
+:before {
+  box-sizing: inherit;
 }
 
 blockquote,
