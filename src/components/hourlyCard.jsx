@@ -10,20 +10,16 @@ export default function hourlyCard({ hour, temperature }) {
       }}
     >
       <div
+        className="grid items-center justify-start"
         style={{
-          display: "grid",
-          alignItems: "center",
-          justifyContent: "flex-start",
           gridRowGap: "15px",
           width: "100%",
           gridTemplateColumns: "1fr",
         }}
       >
         <div
-          className="flex--center"
+          className="flex items-center justify-center font-normal text-center"
           style={{
-            textAlign: "center",
-            fontWeight: 400,
             color: "#666",
             fontSize: "0.9em",
           }}
@@ -41,10 +37,8 @@ export default function hourlyCard({ hour, temperature }) {
           ></Sunny>
         </div>
         <div
-          className="flex--center"
+          className="flex items-center justify-center font-medium text-center"
           style={{
-            textAlign: "center",
-            fontWeight: 500,
             fontSize: "1.1em",
           }}
         >

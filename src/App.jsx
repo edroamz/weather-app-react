@@ -11,26 +11,21 @@ const App = () => (
   <>
     <main>
       <section id="search">
-        <div className="container mx-auto" style={{ padding: "4em 0 0 0" }}>
+        <div className="container mx-auto pt-16">
           <SearchBox></SearchBox>
         </div>
       </section>
       <section id="current-weather">
-        <div
-          className="container mx-auto h-full"
-          style={{ padding: "4em 0 1em 0" }}
-        >
+        <div className="container mx-auto h-full pt-16">
           <div
+            className="grid justify-center text-center"
             style={{
-              display: "grid",
-              textAlign: "center",
-              justifyContent: "center",
               gridTemplateColumns: "1fr",
               margin: "0 auto",
               rowGap: "15px",
             }}
           >
-            <div className="flex--center">
+            <div className="flex items-center justify-center">
               <Sunny
                 style={{
                   height: "38px",
@@ -39,39 +34,36 @@ const App = () => (
                 }}
               ></Sunny>
             </div>
-            <div style={{ display: "grid", rowGap: "15px", textAlign: "left" }}>
+            <div className="grid text-left" style={{ rowGap: "15px" }}>
               <h2
+                className="font-medium text-center"
                 style={{
                   fontSize: "2rem",
-                  fontWeight: 500,
                   lineHeight: 1.25,
-                  textAlign: "center",
                 }}
               >
                 27° Clear sky.
               </h2>
 
               <div
+                className="grid items-center justify-center"
                 style={{
-                  display: "grid",
                   gridTemplateColumns: "repeat(3, auto)",
                   columnGap: "2.5em",
-                  alignItems: "center",
-                  justifyContent: "center",
                 }}
               >
                 <div>
                   <span
+                    className="font-medium"
                     style={{
-                      fontWeight: 500,
                       fontSize: "1.1em",
                     }}
                   >
                     High:{" "}
                     <span
+                      className="font-normal"
                       style={{
                         marginLeft: "0.35em",
-                        fontWeight: 400,
                         color: "#666",
                       }}
                     >
@@ -81,16 +73,16 @@ const App = () => (
                 </div>
                 <div>
                   <span
+                    className="font-medium"
                     style={{
-                      fontWeight: 500,
                       fontSize: "1.1em",
                     }}
                   >
                     Low:{" "}
                     <span
+                      className="font-normal"
                       style={{
                         marginLeft: "0.35em",
-                        fontWeight: 400,
                         color: "#666",
                       }}
                     >
@@ -100,16 +92,16 @@ const App = () => (
                 </div>
                 <div>
                   <span
+                    className="font-medium"
                     style={{
-                      fontWeight: 500,
                       fontSize: "1.1em",
                     }}
                   >
                     Feels like:{" "}
                     <span
+                      className="font-normal"
                       style={{
                         marginLeft: "0.35em",
-                        fontWeight: 400,
                         color: "#666",
                       }}
                     >
@@ -123,7 +115,7 @@ const App = () => (
         </div>
       </section>
       <section id="hourly-forecast">
-        <div className="container mx-auto h-full" style={{ padding: "5em 0" }}>
+        <div className="container mx-auto h-full py-20">
           <div className="flex">
             {hourlyForecast &&
               hourlyForecast.map((i, index) => {
@@ -140,11 +132,10 @@ const App = () => (
       </section>
       <Map></Map>
       <section id="daily-forecast">
-        <div className="container mx-auto h-full" style={{ padding: "5em 0" }}>
+        <div className="container mx-auto h-full py-20">
           <div
-            className=""
+            className="grid"
             style={{
-              display: "grid",
               gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr 1fr",
               gridColumnGap: "10px",
             }}
@@ -171,27 +162,24 @@ const App = () => (
       style={{ borderTop: "1px solid #eaeaea" }}
     >
       <div>
-        <div className="container mx-auto h-full" style={{ padding: "5em 0" }}>
+        <div className="container mx-auto h-full py-20">
           <div
+            className="grid items-center justify-center text-center"
             style={{
-              display: "grid",
-              justifyContent: "center",
-              alignItems: "center",
               rowGap: "1.5em",
-              textAlign: "center",
             }}
           >
             <p>
               Copyright © {new Date().getFullYear()} Eduardo R. Ambriz. All
               rights reserved.
             </p>
-            <p style={{ fontWeight: 300 }}>
+            <p className="font-light">
               This site is built with Webpack & Reactjs from scratch and hosted
               on Netlify. The source code is hosted on{" "}
               <a
+                className="font-medium"
                 style={{
                   color: "rgb(0, 118, 255)",
-                  fontWeight: 500,
                   textDecoration: "none",
                 }}
                 href="https://github.com/edroamz/weather-app-react"

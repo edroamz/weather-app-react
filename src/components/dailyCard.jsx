@@ -12,22 +12,19 @@ export default function dailyCard({ day, maxTemp, minTemp }) {
       }
     >
       <div
-        className="flex"
+        className="flex flex-col"
         style={{
-          flexDirection: "column",
           border: "1px solid rgb(196, 207, 214)",
           borderRadius: "8px",
         }}
       >
         <div
-          className="flex-auto flex--center"
+          className="flex-auto flex items-center justify-center"
           style={{ borderBottom: "1px solid rgb(196, 207, 214)" }}
         >
           <h3
-            className="flex-auto"
+            className="flex-auto font-medium text-center"
             style={{
-              textAlign: "center",
-              fontWeight: 500,
               padding: "15px 0",
             }}
           >
@@ -35,20 +32,18 @@ export default function dailyCard({ day, maxTemp, minTemp }) {
           </h3>
         </div>
         <div
-          className="flex-auto"
+          className="flex-auto grid"
           style={{
             padding: "10px 0",
-            display: "grid",
             gridTemplateColumns: "1fr",
             rowGap: "20px",
           }}
         >
-          <div className="flex--center">
+          <div className="flex items-center justify-center">
             <span
+              className="items-center justify-center"
               style={{
                 minWidth: "48px",
-                alignItems: "center",
-                justifyContent: "center",
                 // border: "1px solid #eee",
                 borderRadius: "50%",
                 width: "48px",
@@ -68,14 +63,10 @@ export default function dailyCard({ day, maxTemp, minTemp }) {
             </span>
           </div>
           <div
+            className="grid items-center justify-center font-light text-center"
             style={{
-              textAlign: "center",
-              fontWeight: 300,
               marginBottom: "10px",
-              display: "grid",
               gridTemplateColumns: "1fr",
-              alignItems: "center",
-              justifyContent: "center",
               rowGap: "7.5px",
             }}
           >

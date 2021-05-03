@@ -1,3 +1,31 @@
-@import "base";
-@import "layout";
-@import "components";
+/* utilities */
+@import "utilities/variables";
+@import "utilities/functions";
+@import "utilities/mixins";
+
+/* vendors */
+
+/* base */
+@import "base/reset";
+@import "base/typography";
+@import "base/backgrounds";
+@import "base/spacing";
+@import "base/layout";
+@import "base/sizing";
+@import "base/flexbox";
+@import "base/grid";
+@import "base/boxAlignment";
+@import "base/svg";
+
+/* layout */
+@import "layout/footer";
+
+/* components */
+@import "components/searchBox";
+@import "components/dailyCard";
+@import "components/hourlyCard";
+@import "components/map";
+
+/* pages */
+
+/* themes */
