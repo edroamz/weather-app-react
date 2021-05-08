@@ -1,9 +1,10 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: ["babel-polyfill", "./src/index.js"],
   output: {
     path: path.resolve(__dirname, "../dist"),
     filename: "[name].[contenthash].js",
@@ -14,7 +15,9 @@ module.exports = {
     alias: {
       "@components": path.resolve(__dirname, "../src/components/"),
       "@styles": path.resolve(__dirname, "../src/styles/"),
-      "@svgs": path.resolve(__dirname, "../src/assets/svg/"),
+      "@icons": path.resolve(__dirname, "../src/assets/icons/"),
+      "@utils": path.resolve(__dirname, "../src/utils/"),
+      "@helpers": path.resolve(__dirname, "../src/helpers/"),
     },
   },
   module: {
@@ -36,7 +39,14 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        use: ["@svgr/webpack"],
+        use: [
+          {
+            loader: "@svgr/webpack",
+            options: {
+              dimensions: false,
+            },
+          },
+        ],
       },
     ],
   },
@@ -50,5 +60,6 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "[name].[contenthash].css",
     }),
+    new Dotenv(),
   ],
 };

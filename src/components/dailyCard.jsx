@@ -1,5 +1,5 @@
 import React from "react";
-import Sunny from "@svgs/sunny-outline.svg";
+import Sunny from "@icons/sun-line.svg";
 
 export default function dailyCard({ day, maxTemp, minTemp }) {
   return (
@@ -23,7 +23,7 @@ export default function dailyCard({ day, maxTemp, minTemp }) {
           style={{ borderBottom: "1px solid rgb(196, 207, 214)" }}
         >
           <h3
-            className="flex-auto font-medium text-center"
+            className="flex-auto text-center"
             style={{
               padding: "15px 0",
             }}

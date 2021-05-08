@@ -1,50 +1,60 @@
 import React from "react";
-import Sunny from "@svgs/cloudy-night-outline.svg";
+import WeatherIcon from "@helpers/getOpenWeatherIconHelper.jsx";
 
-export default function hourlyCard({ hour, temperature }) {
+export default function hourlyCard({ hour, temperature, icon }) {
   return (
-    <div
-      className="flex-1"
-      style={{
-        borderRight: "1px solid #eaeaea",
-      }}
-    >
+    <>
       <div
-        className="grid items-center justify-start"
-        style={{
-          gridRowGap: "15px",
-          width: "100%",
-          gridTemplateColumns: "1fr",
-        }}
+        className="flex-1"
+        // style={{
+        //   borderRight: "1px solid #eaeaea",
+        // }}
       >
         <div
-          className="flex items-center justify-center font-normal text-center"
+          className="grid items-center justify-start"
           style={{
-            color: "#666",
-            fontSize: "0.9em",
+            gridRowGap: "15px",
+            width: "100%",
+            gridTemplateColumns: "1fr",
           }}
         >
-          {hour}
-        </div>
-        <div>
-          <Sunny
-            className="mx-auto"
+          <div
+            className="flex items-center justify-center text-center"
             style={{
-              height: "32px",
-              width: "32px",
-              strokeWidth: 24,
+              color: "#666",
+              fontSize: "0.9em",
             }}
-          ></Sunny>
-        </div>
-        <div
-          className="flex items-center justify-center font-medium text-center"
-          style={{
-            fontSize: "1.1em",
-          }}
-        >
-          {temperature}°
+          >
+            {hour}
+          </div>
+          <div>
+            <WeatherIcon
+              className="mx-auto"
+              iconCode={icon}
+              style={{
+                height: "32px",
+                width: "32px",
+              }}
+            ></WeatherIcon>
+          </div>
+          <div
+            className="flex items-center justify-center text-center"
+            style={{
+              fontSize: "1.1em",
+            }}
+          >
+            {temperature}°
+          </div>
         </div>
       </div>
-    </div>
+      <span
+        style={{
+          height: "42px",
+          width: "1px",
+          alignSelf: "center",
+          backgroundColor: "#eaeaea",
+        }}
+      ></span>
+    </>
   );
 }
