@@ -1,13 +1,5 @@
 header {
   background-color: #111111;
-  // left: 0px;
-  // width: 100%;
-  // z-index: 100;
-  // position: fixed;
-  // top: 0px;
-  // border-bottom: 1px solid rgb(234, 234, 234);
-  // background: hsla(0, 0%, 100%, 0.8);
-  // backdrop-filter: saturate(180%) blur(5px);
 
   div {
     padding: 1em 0;
@@ -15,23 +7,12 @@ header {
   }
 }
 
-.map {
-  height: 500px;
-  width: 100%;
-  background-color: #ededed;
-  // background-image: url(https://images.unsplash.com/photo-1614728672820-e88260ce6d0d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1935&q=80);
-  background-image: url(https://media11.s-nbcnews.com/i/MSNBC/Components/Video/202010/lv_ny03_delta_tracker_201007.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  box-shadow: inset 0 0 300px #ffffff;
-}
-
-.search {
+.searchbox {
+  @extend .mx-auto;
   position: relative;
   width: 490px;
 
-  .search-input {
+  &__input {
     background: #ffffff;
     border: 2px solid #c4cfd6;
     box-sizing: border-box;
@@ -49,28 +30,23 @@ header {
     }
   }
 
-  button {
-    appearance: none !important;
-    background: transparent !important;
-    border: 0px !important;
-    cursor: pointer !important;
+  &__btn {
+    appearance: none;
+    background: transparent;
+    border: 0px;
+    cursor: pointer;
     display: inherit;
-    margin: 0px !important;
-    outline: none !important;
-    overflow: hidden !important;
-    padding: 0px !important;
-    text-decoration: none !important;
-    -webkit-user-select: auto !important;
-    -moz-user-select: auto !important;
-    -ms-user-select: auto !important;
-    user-select: auto !important;
-    -webkit-transition: 0.2s max-width cubic-bezier(0.35, 0, 0.65, 1) !important;
-    -moz-transition: 0.2s max-width cubic-bezier(0.35, 0, 0.65, 1) !important;
-    transition: 0.2s max-width cubic-bezier(0.35, 0, 0.65, 1) !important;
-    vertical-align: middle !important;
-    z-index: 0 !important;
+    margin: 0px;
+    outline: none;
+    overflow: hidden;
+    padding: 0px;
+    text-decoration: none;
+    user-select: auto;
+    transition: 0.2s max-width cubic-bezier(0.35, 0, 0.65, 1);
+    vertical-align: middle;
+    z-index: 0;
 
-    svg {
+    &__icon {
       height: 45px;
       width: 45px;
       stroke-width: 45;
@@ -88,7 +64,6 @@ header {
 }
 
 .weather-icon {
-  @extend .mx-auto;
   width: 32px;
   height: 32px;
   // fill: #0070f3;
@@ -120,14 +95,59 @@ header {
       font-size: 0.9em;
     }
 
+    &__icon {
+      @extend .mx-auto;
+    }
+
     &__temp {
       font-size: 1.1em;
     }
   }
 }
 
+.map {
+  @extend .overflow-hidden;
+  height: 500px;
+  width: 100%;
+  background-color: #ededed;
+  // background-image: url(https://images.unsplash.com/photo-1614728672820-e88260ce6d0d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1935&q=80);
+  // background-image: url(https://media11.s-nbcnews.com/i/MSNBC/Components/Video/202010/lv_ny03_delta_tracker_201007.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: inset 0 0 300px #ffffff;
+}
+
 .daily-card {
+  @extend .flex, .flex-col;
+  border: 1px solid rgb(196, 207, 214);
+  border-radius: 8px;
+
   &:hover {
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  &__box {
+    @extend .flex-auto, .grid, .items-center, .justify-center;
+    padding: 20px 10px;
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+
+    &__weekday {
+      @extend .flex-auto, .text-center;
+      color: #666;
+      font-size: 0.95em;
+      font-weight: 600;
+    }
+
+    &__icon {
+      @extend .flex, .items-center, .justify-center;
+    }
+
+    &__temps {
+      @extend .grid, .items-center, .justify-center, .text-center;
+      grid-template-columns: 1fr;
+      row-gap: 7.5px;
+    }
   }
 }

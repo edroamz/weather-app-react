@@ -3,13 +3,13 @@ import SearchBox from "@components/searchBox.jsx";
 import HourlyCard from "@components/hourlyCard.jsx";
 import DailyCard from "@components/dailyCard.jsx";
 import Map from "@components/map.jsx";
-import { RoundNumber } from "@utils/mathUtils.js";
 import {
   GetHoursFromUnixUTCTimestamp,
   GetShortWeekdayFromUnixUTCTimestamp,
 } from "@utils/dateUtils.js";
 import WeatherIcon from "@helpers/getOpenWeatherIconHelper.jsx";
-import LocationIcon from "@icons/send-plane-line.svg";
+import LocationIcon from "@icons/navigate.svg";
+import { Loader } from "@googlemaps/js-api-loader";
 
 const App = () => {
   const [apiData, setApiData] = useState({});
@@ -20,12 +20,19 @@ const App = () => {
     lon: -0.1257,
   });
 
-  const apiKey = process.env.API_KEY;
-  const apiUri = process.env.API_URI;
+  const apiKey = process.env.API_KEY_OPEN_WEATHER;
+  const apiUri = process.env.API_URI_OPEN_WEATHER;
   const units = "metric";
+  const googleMapsKey = process.env.API_KEY_GOOGLE_MAPS;
 
   const currentWeatherApiUrl = `${apiUri}/weather?q=${city.name}&appid=${apiKey}&units=${units}`;
   const oneCallApiUrl = `${apiUri}/onecall?lat=${city.lat}&lon=${city.lon}&appid=${apiKey}&units=${units}`;
+  const mapRef = React.useRef();
+  let map = {};
+  const mapOptions = {
+    center: { lat: city.lat, lng: city.lon },
+    zoom: 10,
+  };
 
   useEffect(async () => {
     await fetch(currentWeatherApiUrl, {
@@ -56,6 +63,22 @@ const App = () => {
       })
       .catch(function (error) {
         console.log(error);
+      });
+
+    const GMapsLoader = new Loader({
+      apiKey: googleMapsKey,
+      version: "weekly",
+    });
+    GMapsLoader.load()
+      .then(() => {
+        map = new google.maps.Map(mapRef.current, mapOptions);
+        new google.maps.Marker({
+          position: { lat: city.lat, lng: city.lon },
+          map: map,
+        });
+      })
+      .catch((e) => {
+        console.log(e);
       });
   }, [currentWeatherApiUrl, oneCallApiUrl]);
 
@@ -117,18 +140,34 @@ const App = () => {
                         iconCode={apiData.weather[0].icon}
                       ></WeatherIcon>
                     )}{" "}
-                    {RoundNumber(apiData.main.temp)}° {apiData.weather[0].main}.
+                    {Math.round(apiData.main.temp)}° {apiData.weather[0].main}.
                   </h2>
                   <p
                     style={{
                       fontSize: "1.25rem",
-                      marginBottom: "10px",
                       textTransform: "capitalize",
                     }}
                   >
                     {apiData.weather[0].description}
                   </p>
-
+                  <div className="container mx-auto">
+                    <LocationIcon
+                      style={{
+                        display: "inline-block",
+                        marginRight: "5px",
+                        height: "14px",
+                        width: "14px",
+                      }}
+                    ></LocationIcon>
+                    <span
+                      style={{
+                        textDecorationLine: "underline",
+                        textDecorationThickness: "from-font",
+                      }}
+                    >
+                      {apiData?.name}
+                    </span>
+                  </div>
                   <div
                     className="grid items-center justify-center"
                     style={{
@@ -192,7 +231,7 @@ const App = () => {
                             color: "#666",
                           }}
                         >
-                          {RoundNumber(apiData.main.temp_max)}°
+                          {Math.round(apiData.main.temp_max)}°
                         </span>
                       </span>
                     </div>
@@ -212,7 +251,7 @@ const App = () => {
                             color: "#666",
                           }}
                         >
-                          {RoundNumber(apiData.main.temp_min)}°
+                          {Math.round(apiData.main.temp_min)}°
                         </span>
                       </span>
                     </div>
@@ -232,32 +271,9 @@ const App = () => {
                             color: "#666",
                           }}
                         >
-                          {RoundNumber(apiData.main.feels_like)}°
+                          {Math.round(apiData.main.feels_like)}°
                         </span>
                       </span>
-                    </div>
-                  </div>
-                  <div
-                    className="container mx-auto"
-                    style={{ marginTop: "0.75em" }}
-                  >
-                    <div
-                      style={{
-                        display: "inline-block",
-                        padding: "3px 12px",
-                        border: "1.75px solid rgb(234, 234, 234)",
-                        borderRadius: "9999px",
-                      }}
-                    >
-                      <LocationIcon
-                        style={{
-                          display: "inline-block",
-                          marginRight: "10px",
-                          height: "16px",
-                          width: "16px",
-                        }}
-                      ></LocationIcon>
-                      {apiData && apiData.name}
                     </div>
                   </div>
                 </div>
@@ -265,7 +281,6 @@ const App = () => {
             </div>
           </section>
         )}
-
         <section id="hourly-forecast">
           <div className="container mx-auto h-full py-20">
             <h2 style={{ marginBottom: "2rem", textAlign: "center" }}>
@@ -277,7 +292,7 @@ const App = () => {
                   <React.Fragment key={index}>
                     <HourlyCard
                       hour={GetHoursFromUnixUTCTimestamp(i.dt)}
-                      temp={RoundNumber(i.temp)}
+                      temp={Math.round(i.temp)}
                       icon={
                         <WeatherIcon
                           className="weather-icon"
@@ -301,7 +316,8 @@ const App = () => {
             </div>
           </div>
         </section>
-        <Map></Map>
+        {/* <Map></Map> */}
+        <section id="map" ref={mapRef} className="map"></section>;
         <section id="daily-forecast">
           <div className="container mx-auto h-full py-20">
             <h2 style={{ marginBottom: "2rem", textAlign: "center" }}>
@@ -319,8 +335,8 @@ const App = () => {
                   <DailyCard
                     key={index}
                     weekday={GetShortWeekdayFromUnixUTCTimestamp(i.dt)}
-                    maxTemp={RoundNumber(i.temp.max)}
-                    minTemp={RoundNumber(i.temp.min)}
+                    maxTemp={Math.round(i.temp.max)}
+                    minTemp={Math.round(i.temp.min)}
                     icon={
                       <WeatherIcon
                         className="weather-icon"

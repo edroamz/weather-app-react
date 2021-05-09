@@ -7,14 +7,14 @@ export default function searchBox() {
   }
 
   return (
-    <div className="search mx-auto">
+    <div className="searchbox">
       <input
-        className="search-input"
+        className="searchbox__input"
         type="text"
         placeholder="Search city..."
       />
-      <button onClick={search}>
-        <Icon></Icon>
+      <button className="searchbox__btn" onClick={search}>
+        <Icon className="searchbox__btn__icon"></Icon>
       </button>
     </div>
   );
