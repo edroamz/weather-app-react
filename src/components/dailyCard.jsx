@@ -1,16 +1,8 @@
 import React from "react";
-import Sunny from "@icons/sun-line.svg";
 
-export default function dailyCard({ day, maxTemp, minTemp }) {
+export default function dailyCard({ weekday, maxTemp, minTemp, icon }) {
   return (
-    <div
-      className=""
-      style={
-        {
-          /*boxShadow: "0px 1px 4px rgba(0, 0, 0, 0.05)",*/
-        }
-      }
-    >
+    <div className="daily-card">
       <div
         className="flex flex-col"
         style={{
@@ -18,18 +10,18 @@ export default function dailyCard({ day, maxTemp, minTemp }) {
           borderRadius: "8px",
         }}
       >
-        <div
-          className="flex-auto flex items-center justify-center"
-          style={{ borderBottom: "1px solid rgb(196, 207, 214)" }}
-        >
-          <h3
+        <div className="flex-auto flex items-center justify-center">
+          <span
             className="flex-auto text-center"
             style={{
               padding: "15px 0",
+              color: "#666",
+              fontSize: "0.95em",
+              fontWeight: 600,
             }}
           >
-            {day}
-          </h3>
+            {weekday}
+          </span>
         </div>
         <div
           className="flex-auto grid"
@@ -51,15 +43,7 @@ export default function dailyCard({ day, maxTemp, minTemp }) {
                 display: "inline-flex",
               }}
             >
-              <Sunny
-                className="mx-auto"
-                style={{
-                  height: "32px",
-                  width: "32px",
-                  strokeWidth: 24,
-                  // color: "#0070f3",
-                }}
-              ></Sunny>
+              {icon}
             </span>
           </div>
           <div

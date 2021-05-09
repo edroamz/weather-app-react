@@ -3,11 +3,13 @@ import SearchBox from "@components/searchBox.jsx";
 import HourlyCard from "@components/hourlyCard.jsx";
 import DailyCard from "@components/dailyCard.jsx";
 import Map from "@components/map.jsx";
-import hourlyForecast from "./data/hourlyForecast.json";
-import dailyForecast from "./data/dailyForecast.json";
 import { RoundNumber } from "@utils/mathUtils.js";
-import { GetUTCHoursFromUnixTimestamp } from "@utils/dateUtils.js";
+import {
+  GetHoursFromUnixUTCTimestamp,
+  GetShortWeekdayFromUnixUTCTimestamp,
+} from "@utils/dateUtils.js";
 import WeatherIcon from "@helpers/getOpenWeatherIconHelper.jsx";
+import LocationIcon from "@icons/send-plane-line.svg";
 
 const App = () => {
   const [apiData, setApiData] = useState({});
@@ -34,6 +36,7 @@ const App = () => {
     })
       .then((resp) => resp.json())
       .then(function (data) {
+        console.log(data);
         setApiData(data);
       })
       .catch(function (error) {
@@ -48,6 +51,7 @@ const App = () => {
     })
       .then((resp) => resp.json())
       .then(function (data) {
+        console.log(data);
         setApiAllData(data);
       })
       .catch(function (error) {
@@ -99,23 +103,6 @@ const App = () => {
                   rowGap: "15px",
                 }}
               >
-                <div className="flex items-center justify-center">
-                  {/* <Icon
-                    style={{
-                      height: "38px",
-                      width: "38px",
-                    }}
-                  ></Icon> */}
-                  {apiData && apiData.main && apiData.weather && (
-                    <WeatherIcon
-                      iconCode={apiData.weather[0].icon}
-                      style={{
-                        height: "38px",
-                        width: "38px",
-                      }}
-                    ></WeatherIcon>
-                  )}
-                </div>
                 <div className="grid text-left" style={{ rowGap: "15px" }}>
                   <h2
                     className=" text-center"
@@ -124,6 +111,12 @@ const App = () => {
                       lineHeight: 1.25,
                     }}
                   >
+                    {apiData && apiData.main && apiData.weather && (
+                      <WeatherIcon
+                        className="weather-icon--current"
+                        iconCode={apiData.weather[0].icon}
+                      ></WeatherIcon>
+                    )}{" "}
                     {RoundNumber(apiData.main.temp)}° {apiData.weather[0].main}.
                   </h2>
                   <p
@@ -244,6 +237,29 @@ const App = () => {
                       </span>
                     </div>
                   </div>
+                  <div
+                    className="container mx-auto"
+                    style={{ marginTop: "0.75em" }}
+                  >
+                    <div
+                      style={{
+                        display: "inline-block",
+                        padding: "3px 12px",
+                        border: "1.75px solid rgb(234, 234, 234)",
+                        borderRadius: "9999px",
+                      }}
+                    >
+                      <LocationIcon
+                        style={{
+                          display: "inline-block",
+                          marginRight: "10px",
+                          height: "16px",
+                          width: "16px",
+                        }}
+                      ></LocationIcon>
+                      {apiData && apiData.name}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -260,12 +276,30 @@ const App = () => {
                 apiAllData.hourly &&
                 apiAllData.hourly.slice(0, 12).map((i, index) => {
                   return (
-                    <HourlyCard
-                      key={index}
-                      hour={GetUTCHoursFromUnixTimestamp(i.dt)}
-                      temperature={RoundNumber(i.temp)}
-                      icon={i.weather[0].icon}
-                    ></HourlyCard>
+                    <React.Fragment key={index}>
+                      <HourlyCard
+                        hour={GetHoursFromUnixUTCTimestamp(i.dt)}
+                        temp={RoundNumber(i.temp)}
+                        icon={
+                          <WeatherIcon
+                            className="weather-icon"
+                            iconCode={i.weather[0].icon}
+                          ></WeatherIcon>
+                        }
+                      ></HourlyCard>
+                      {apiAllData.hourly.slice(0, 12).length - 1 === index ? (
+                        ""
+                      ) : (
+                        <span
+                          style={{
+                            height: "42px",
+                            width: "1px",
+                            alignSelf: "center",
+                            backgroundColor: "#eaeaea",
+                          }}
+                        ></span>
+                      )}
+                    </React.Fragment>
                   );
                 })}
             </div>
@@ -274,21 +308,31 @@ const App = () => {
         <Map></Map>
         <section id="daily-forecast">
           <div className="container mx-auto h-full py-20">
+            <h2 style={{ marginBottom: "2rem", textAlign: "center" }}>
+              Daily forecast
+            </h2>
             <div
               className="grid"
               style={{
-                gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr 1fr",
+                gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr",
                 gridColumnGap: "10px",
               }}
             >
-              {dailyForecast &&
-                dailyForecast.map((i, index) => {
+              {apiAllData &&
+                apiAllData.daily &&
+                apiAllData.daily.map((i, index) => {
                   return (
                     <DailyCard
                       key={index}
-                      day={i.day}
-                      maxTemp={i.maxTemp}
-                      minTemp={i.minTemp}
+                      weekday={GetShortWeekdayFromUnixUTCTimestamp(i.dt)}
+                      maxTemp={RoundNumber(i.temp.max)}
+                      minTemp={RoundNumber(i.temp.min)}
+                      icon={
+                        <WeatherIcon
+                          className="weather-icon"
+                          iconCode={i.weather[0].icon}
+                        ></WeatherIcon>
+                      }
                     >
                       daily
                     </DailyCard>

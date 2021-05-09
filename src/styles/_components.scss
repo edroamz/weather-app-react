@@ -33,7 +33,7 @@ header {
 
   .search-input {
     background: #ffffff;
-    border: 1px solid #c4cfd6;
+    border: 2px solid #c4cfd6;
     box-sizing: border-box;
     border-radius: 99999px;
     width: 100%;
@@ -84,5 +84,50 @@ header {
       background-color: #0076ff;
       color: white;
     }
+  }
+}
+
+.weather-icon {
+  @extend .mx-auto;
+  width: 32px;
+  height: 32px;
+  // fill: #0070f3;
+
+  &--current {
+    height: 38px;
+    width: 38px;
+    display: inline-block;
+    margin-right: 10px;
+  }
+}
+
+.hourly-card {
+  @extend .flex-1;
+
+  &__box {
+    @extend .grid, .items-center, .justify-start;
+    grid-row-gap: 15px;
+    width: 100%;
+    grid-template-columns: 1fr;
+
+    &__hour,
+    &__temp {
+      @extend .flex, .items-center, .justify-center, .text-center;
+    }
+
+    &__hour {
+      color: #666;
+      font-size: 0.9em;
+    }
+
+    &__temp {
+      font-size: 1.1em;
+    }
+  }
+}
+
+.daily-card {
+  &:hover {
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.05);
   }
 }
