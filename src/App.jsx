@@ -15,9 +15,10 @@ const App = () => {
   const [apiData, setApiData] = useState({});
   const [apiAllData, setApiAllData] = useState({});
   const [city, setCity] = useState({
-    name: "London",
-    lat: 51.5085,
-    lon: -0.1257,
+    id: 5128581,
+    name: "New York",
+    lat: 40.7143,
+    lon: -74.006,
   });
 
   const apiKey = process.env.API_KEY_OPEN_WEATHER;
@@ -25,7 +26,7 @@ const App = () => {
   const units = "metric";
   const googleMapsKey = process.env.API_KEY_GOOGLE_MAPS;
 
-  const currentWeatherApiUrl = `${apiUri}/weather?q=${city.name}&appid=${apiKey}&units=${units}`;
+  const currentWeatherApiUrl = `${apiUri}/weather?id=${city.id}&appid=${apiKey}&units=${units}`;
   const oneCallApiUrl = `${apiUri}/onecall?lat=${city.lat}&lon=${city.lon}&appid=${apiKey}&units=${units}`;
   const mapRef = React.useRef();
   let map = {};
@@ -108,15 +109,40 @@ const App = () => {
       </header>
       <main>
         <section id="search">
-          <div className="container mx-auto" style={{ paddingTop: "3rem" }}>
-            <SearchBox></SearchBox>
+          <div className="container mx-auto">
+            <SearchBox setCity={setCity}></SearchBox>
           </div>
         </section>
         {apiData?.main && apiData?.weather && (
           <section id="current-weather">
             <div
+              className="container mx-auto"
+              style={{
+                paddingTop: "2rem",
+                textAlign: "center",
+                fontSize: "1.1em",
+              }}
+            >
+              <LocationIcon
+                style={{
+                  display: "inline-block",
+                  marginRight: "5px",
+                  height: "14px",
+                  width: "14px",
+                }}
+              ></LocationIcon>
+              <span
+                style={{
+                  textDecorationLine: "underline",
+                  textDecorationThickness: "from-font",
+                }}
+              >
+                {apiData?.name}
+              </span>
+            </div>
+            <div
               className="container mx-auto h-full"
-              style={{ paddingTop: "2.5rem" }}
+              style={{ paddingTop: "3rem" }}
             >
               <div
                 className="grid justify-center text-center"
@@ -150,7 +176,7 @@ const App = () => {
                   >
                     {apiData.weather[0].description}
                   </p>
-                  <div className="container mx-auto">
+                  {/* <div className="container mx-auto">
                     <LocationIcon
                       style={{
                         display: "inline-block",
@@ -167,7 +193,7 @@ const App = () => {
                     >
                       {apiData?.name}
                     </span>
-                  </div>
+                  </div> */}
                   <div
                     className="grid items-center justify-center"
                     style={{
@@ -283,7 +309,13 @@ const App = () => {
         )}
         <section id="hourly-forecast">
           <div className="container mx-auto h-full py-20">
-            <h2 style={{ marginBottom: "2rem", textAlign: "center" }}>
+            <h2
+              style={{
+                marginBottom: "2rem",
+                textAlign: "center",
+                fontSize: "2rem",
+              }}
+            >
               Hourly forecast
             </h2>
             <div className="flex">
@@ -317,10 +349,16 @@ const App = () => {
           </div>
         </section>
         {/* <Map></Map> */}
-        <section id="map" ref={mapRef} className="map"></section>;
+        <section id="map" ref={mapRef} className="map"></section>
         <section id="daily-forecast">
           <div className="container mx-auto h-full py-20">
-            <h2 style={{ marginBottom: "2rem", textAlign: "center" }}>
+            <h2
+              style={{
+                marginBottom: "2rem",
+                textAlign: "center",
+                fontSize: "2rem",
+              }}
+            >
               Daily forecast
             </h2>
             <div
