@@ -1,14 +1,30 @@
 import React, { useEffect, useRef, useState } from "react";
 import SearchIcon from "@icons/search-outline.svg";
-import cityList from "./../data/cityList.json";
+// import cityList from "./../data/cityList.json";
 import Modal from "@components/common/modal.jsx";
+import { useQuery, gql } from "@apollo/client";
 
 export default function searchBox({ setCity }) {
-  const [cities] = useState(cityList);
+  const [cities] = useState({});
   // const [display, setDisplay] = useState(false);
   const [search, setSearch] = useState("");
   // const wrapperRef = useRef(null);
   const [displayModal, setDisplayModal] = useState(false);
+
+  // const CITIES = gql`
+  //   query GetAllCities {
+  //     getAllCities {
+  //       id
+  //       name
+  //       state
+  //       country
+  //       coord {
+  //         lon
+  //         lat
+  //       }
+  //     }
+  //   }
+  // `;
 
   // useEffect(() => {
   //   document.addEventListener("mousedown", handleClickOutside);
@@ -51,6 +67,9 @@ export default function searchBox({ setCity }) {
     });
     setDisplayModal(false);
   }
+
+  // const { loading, error, data } = useQuery(CITIES);
+  // if (data) console.log(data);
 
   return (
     <div /*ref={wrapperRef}*/ className="searchbox">
