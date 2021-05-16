@@ -10,10 +10,10 @@ import {
 import WeatherIcon from "@helpers/getOpenWeatherIconHelper.jsx";
 import LocationIcon from "@icons/navigate.svg";
 import { Loader } from "@googlemaps/js-api-loader";
+import { useQuery, gql } from "@apollo/client";
 
 const App = () => {
   const [apiData, setApiData] = useState({});
-  const [apiAllData, setApiAllData] = useState({});
   const [city, setCity] = useState({
     id: 5128581,
     name: "New York",
@@ -21,51 +21,18 @@ const App = () => {
     lon: -74.006,
   });
 
-  const apiKey = process.env.API_KEY_OPEN_WEATHER;
-  const apiUri = process.env.API_URI_OPEN_WEATHER;
   const units = "metric";
+  const { lat, lon } = city;
   const googleMapsKey = process.env.API_KEY_GOOGLE_MAPS;
 
-  const currentWeatherApiUrl = `${apiUri}/weather?id=${city.id}&appid=${apiKey}&units=${units}`;
-  const oneCallApiUrl = `${apiUri}/onecall?lat=${city.lat}&lon=${city.lon}&appid=${apiKey}&units=${units}`;
   const mapRef = React.useRef();
   let map = {};
   const mapOptions = {
-    center: { lat: city.lat, lng: city.lon },
+    center: { lat, lng: lon },
     zoom: 10,
   };
 
   useEffect(async () => {
-    await fetch(currentWeatherApiUrl, {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-    })
-      .then((resp) => resp.json())
-      .then(function (data) {
-        console.log(data);
-        setApiData(data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-    await fetch(oneCallApiUrl, {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-    })
-      .then((resp) => resp.json())
-      .then(function (data) {
-        console.log(data);
-        setApiAllData(data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
     const GMapsLoader = new Loader({
       apiKey: googleMapsKey,
       version: "weekly",
@@ -74,14 +41,65 @@ const App = () => {
       .then(() => {
         map = new google.maps.Map(mapRef.current, mapOptions);
         new google.maps.Marker({
-          position: { lat: city.lat, lng: city.lon },
-          map: map,
+          position: { lat, lng: lon },
+          map,
         });
       })
       .catch((e) => {
         console.log(e);
       });
-  }, [currentWeatherApiUrl, oneCallApiUrl]);
+  }, [city]);
+
+  const GET_WEATHER_DATA = gql`
+    query GetWeatherData($lat: Float!, $lon: Float!, $units: String!) {
+      getWeatherData(lat: $lat, lon: $lon, units: $units) {
+        lat
+        lon
+        current {
+          dt
+          temp
+          feels_like
+          pressure
+          humidity
+          uvi
+          clouds
+          weather {
+            main
+            description
+            icon
+          }
+        }
+        hourly {
+          dt
+          temp
+          weather {
+            icon
+          }
+        }
+        daily {
+          dt
+          temp {
+            min
+            max
+          }
+          weather {
+            icon
+          }
+        }
+      }
+    }
+  `;
+
+  const { loading, error, data } = useQuery(GET_WEATHER_DATA, {
+    variables: { lat, lon, units },
+    onCompleted: (data) => {
+      console.log(data.getWeatherData);
+      setApiData(data.getWeatherData);
+    },
+  });
+
+  // if (loading) return "Loading...";
+  // if (error) return `Error! ${error.message}`;
 
   return (
     <>
@@ -113,7 +131,7 @@ const App = () => {
             <SearchBox setCity={setCity}></SearchBox>
           </div>
         </section>
-        {apiData?.main && apiData?.weather && (
+        {apiData?.current?.weather && (
           <section id="current-weather">
             <div
               className="container mx-auto"
@@ -137,7 +155,7 @@ const App = () => {
                   textDecorationThickness: "from-font",
                 }}
               >
-                {apiData?.name}
+                {city.name}
               </span>
             </div>
             <div
@@ -160,13 +178,14 @@ const App = () => {
                       lineHeight: 1.25,
                     }}
                   >
-                    {apiData?.main && apiData?.weather && (
+                    {apiData?.current?.weather && (
                       <WeatherIcon
                         className="weather-icon--current"
-                        iconCode={apiData.weather[0].icon}
+                        iconCode={apiData.current.weather[0].icon}
                       ></WeatherIcon>
                     )}{" "}
-                    {Math.round(apiData.main.temp)}° {apiData.weather[0].main}.
+                    {Math.round(apiData.current.temp)}°{" "}
+                    {apiData.current.weather[0].main}.
                   </h2>
                   <p
                     style={{
@@ -174,26 +193,9 @@ const App = () => {
                       textTransform: "capitalize",
                     }}
                   >
-                    {apiData.weather[0].description}
+                    {apiData.current.weather[0].description}
                   </p>
-                  {/* <div className="container mx-auto">
-                    <LocationIcon
-                      style={{
-                        display: "inline-block",
-                        marginRight: "5px",
-                        height: "14px",
-                        width: "14px",
-                      }}
-                    ></LocationIcon>
-                    <span
-                      style={{
-                        textDecorationLine: "underline",
-                        textDecorationThickness: "from-font",
-                      }}
-                    >
-                      {apiData?.name}
-                    </span>
-                  </div> */}
+
                   <div
                     className="grid items-center justify-center"
                     style={{
@@ -217,7 +219,7 @@ const App = () => {
                             color: "#666",
                           }}
                         >
-                          {apiData.main.pressure} hPa
+                          {apiData.current.pressure} hPa
                         </span>
                       </span>
                     </div>
@@ -237,47 +239,7 @@ const App = () => {
                             color: "#666",
                           }}
                         >
-                          {apiData.main.humidity}%
-                        </span>
-                      </span>
-                    </div>
-                    <div style={{ color: "hsl(203deg 18% 65%)" }}>—</div>
-                    <div>
-                      <span
-                        className=""
-                        style={{
-                          fontSize: "1.1em",
-                        }}
-                      >
-                        High:{" "}
-                        <span
-                          className=""
-                          style={{
-                            marginLeft: "0.35em",
-                            color: "#666",
-                          }}
-                        >
-                          {Math.round(apiData.main.temp_max)}°
-                        </span>
-                      </span>
-                    </div>
-                    <div style={{ color: "hsl(203deg 18% 65%)" }}>—</div>
-                    <div>
-                      <span
-                        className=""
-                        style={{
-                          fontSize: "1.1em",
-                        }}
-                      >
-                        Low:{" "}
-                        <span
-                          className=""
-                          style={{
-                            marginLeft: "0.35em",
-                            color: "#666",
-                          }}
-                        >
-                          {Math.round(apiData.main.temp_min)}°
+                          {apiData.current.humidity}%
                         </span>
                       </span>
                     </div>
@@ -297,7 +259,47 @@ const App = () => {
                             color: "#666",
                           }}
                         >
-                          {Math.round(apiData.main.feels_like)}°
+                          {Math.round(apiData.current.feels_like)}°
+                        </span>
+                      </span>
+                    </div>
+                    <div style={{ color: "hsl(203deg 18% 65%)" }}>—</div>
+                    <div>
+                      <span
+                        className=""
+                        style={{
+                          fontSize: "1.1em",
+                        }}
+                      >
+                        Clouds:{" "}
+                        <span
+                          className=""
+                          style={{
+                            marginLeft: "0.35em",
+                            color: "#666",
+                          }}
+                        >
+                          {apiData.current.clouds}%
+                        </span>
+                      </span>
+                    </div>
+                    <div style={{ color: "hsl(203deg 18% 65%)" }}>—</div>
+                    <div>
+                      <span
+                        className=""
+                        style={{
+                          fontSize: "1.1em",
+                        }}
+                      >
+                        UV index:{" "}
+                        <span
+                          className=""
+                          style={{
+                            marginLeft: "0.35em",
+                            color: "#666",
+                          }}
+                        >
+                          {apiData.current.uvi}
                         </span>
                       </span>
                     </div>
@@ -319,7 +321,7 @@ const App = () => {
               Hourly forecast
             </h2>
             <div className="flex">
-              {apiAllData?.hourly?.slice(0, 12)?.map((i, index) => {
+              {apiData?.hourly?.slice(0, 12)?.map((i, index) => {
                 return (
                   <React.Fragment key={index}>
                     <HourlyCard
@@ -332,7 +334,7 @@ const App = () => {
                         ></WeatherIcon>
                       }
                     ></HourlyCard>
-                    {apiAllData.hourly.slice(0, 12).length - 1 !== index && (
+                    {apiData.hourly.slice(0, 12).length - 1 !== index && (
                       <span
                         style={{
                           height: "42px",
@@ -368,7 +370,7 @@ const App = () => {
                 gridColumnGap: "10px",
               }}
             >
-              {apiAllData?.daily?.map((i, index) => {
+              {apiData?.daily?.map((i, index) => {
                 return (
                   <DailyCard
                     key={index}
