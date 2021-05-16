@@ -7,6 +7,7 @@ const {
   GraphQLList,
   GraphQLSchema,
 } = require("graphql");
+const { apiUri, apiKey } = require("../config");
 const CityType = require("./TypeDefs/City/CityType");
 const OpenWeatherType = require("./TypeDefs/OpenWeather/OpenWeatherType");
 
@@ -51,8 +52,6 @@ const RootQuery = new GraphQLObjectType({
         units: { type: GraphQLString },
       },
       async resolve(parent, args) {
-        const apiUri = "https://api.openweathermap.org/data/2.5";
-        const apiKey = "41461cf158ec5fd7268d45aba9e1c901";
         const { lat, lon, units } = args;
 
         return await fetch(
