@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import SearchBox from "@components/searchBox.jsx";
 import HourlyCard from "@components/hourlyCard.jsx";
 import DailyCard from "@components/dailyCard.jsx";
@@ -9,7 +9,7 @@ import {
 } from "@utils/dateUtils.js";
 import WeatherIcon from "@helpers/getOpenWeatherIconHelper.jsx";
 import LocationIcon from "@icons/navigate.svg";
-import { Loader } from "@googlemaps/js-api-loader";
+
 import { useQuery, gql } from "@apollo/client";
 
 const App = () => {
@@ -23,32 +23,6 @@ const App = () => {
 
   const units = "metric";
   const { lat, lon } = city;
-  const googleMapsKey = process.env.API_KEY_GOOGLE_MAPS;
-
-  const mapRef = React.useRef();
-  let map = {};
-  const mapOptions = {
-    center: { lat, lng: lon },
-    zoom: 10,
-  };
-
-  useEffect(async () => {
-    const GMapsLoader = new Loader({
-      apiKey: googleMapsKey,
-      version: "weekly",
-    });
-    GMapsLoader.load()
-      .then(() => {
-        map = new google.maps.Map(mapRef.current, mapOptions);
-        new google.maps.Marker({
-          position: { lat, lng: lon },
-          map,
-        });
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, [city]);
 
   const GET_WEATHER_DATA = gql`
     query GetWeatherData($lat: Float!, $lon: Float!, $units: String!) {
@@ -98,8 +72,8 @@ const App = () => {
     },
   });
 
-  // if (loading) return "Loading...";
-  // if (error) return `Error! ${error.message}`;
+  if (loading) return "Loading...";
+  if (error) return `Error! ${error.message}`;
 
   return (
     <>
@@ -350,8 +324,7 @@ const App = () => {
             </div>
           </div>
         </section>
-        {/* <Map></Map> */}
-        <section id="map" ref={mapRef} className="map"></section>
+        <Map lat={lat} lng={lon}></Map>
         <section id="daily-forecast">
           <div className="container mx-auto h-full py-20">
             <h2
