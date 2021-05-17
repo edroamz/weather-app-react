@@ -56,9 +56,9 @@ export default function modal({
                 style={{
                   verticalAlign: "middle",
                   display: "inline-flex",
-                  height: "24px",
-                  width: "24px",
-                  strokeWidth: 35,
+                  height: "28px",
+                  width: "28px",
+                  strokeWidth: 40,
                   color: "#0070f3",
                 }}
               ></SearchIcon>
@@ -66,11 +66,11 @@ export default function modal({
                 type="text"
                 style={{
                   width: "100%",
-                  height: "4rem",
+                  height: "4.5rem",
                   marginLeft: "25px",
                   border: 0,
                   outline: "none",
-                  fontSize: "1.15rem",
+                  fontSize: "1.2rem",
                 }}
                 placeholder="Search city..."
                 autoFocus

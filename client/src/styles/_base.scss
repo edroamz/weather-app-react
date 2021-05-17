@@ -1,6 +1,14 @@
-// @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap");
 
-// $font-sans: "Inter", sans-serif;
+$font-sans: "Inter", sans-serif;
+
+$header-height: 50px;
+
+$breakpoints: (
+  sm: 640px,
+  md: 768px,
+  lg: 1024px,
+);
 
 $main-bg: #fff;
 $text-color: #000;
@@ -22,9 +30,10 @@ html {
 
 body,
 html {
+  margin: 0;
   background-color: $main-bg;
   color: $text-color;
-  //   font-family: $font-sans;
+  font-family: $font-sans;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

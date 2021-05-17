@@ -1,9 +1,47 @@
-header {
-  background-color: #111111;
+.container {
+  width: 100%;
+  margin: 0 auto;
 
-  div {
-    padding: 1em 0;
+  @include media("<=sm") {
+    max-width: 640px;
+  }
+
+  @include media(">sm", "<=md") {
+    max-width: 768px;
+  }
+
+  @include media(">md", "<=lg") {
+    max-width: 1024px;
+  }
+
+  @include media(">lg") {
+    max-width: 1280px;
+  }
+}
+
+.header {
+  background-color: #111111;
+  height: $header-height;
+
+  @include media("<=md") {
+    $header-height: 70px;
+    height: $header-height;
+  }
+
+  &__paragraph {
+    color: #fff;
+    text-align: center;
     font-size: 0.95rem;
+    line-height: 1.35rem;
+
+    @include media("<=lg") {
+      text-align: left;
+    }
+
+    &__link {
+      color: #00f6ff;
+      text-decoration: none;
+    }
   }
 }
 
@@ -11,7 +49,8 @@ header {
   border-bottom: 1px solid #ddd;
   background-color: #ffffff;
   position: relative;
-  padding: 16px 0;
+  padding: 1rem 0;
+
   // @extend .mx-auto;
   // width: 590px;
   // max-width: 590px;
@@ -21,11 +60,12 @@ header {
     align-items: center;
     background-color: inherit;
     border: 0;
-    padding: 8px 0;
+    height: 40px;
     font-size: 18px;
     line-height: 18px;
     text-align: left;
     width: 100%;
+    padding: 0;
 
     &:hover {
       cursor: pointer;
@@ -44,8 +84,9 @@ header {
       color: #333;
     }
 
-    &__span {
+    &__text {
       margin-left: 25px;
+      font-size: 1.25rem;
     }
   }
 
@@ -72,41 +113,6 @@ header {
     }
   }
 
-  // &__btn {
-  //   display: inline-flex;
-  //   justify-content: center;
-  //   align-items: center;
-  //   width: 50px;
-  //   height: 100%;
-  //   appearance: none;
-  //   background: #0076ff;
-  //   border: 0px;
-  //   border-radius: 8px;
-  //   border-bottom-left-radius: initial;
-  //   border-top-left-radius: initial;
-  //   position: absolute;
-  //   top: 0;
-  //   right: 0;
-  //   cursor: pointer;
-  //   margin: 0px;
-  //   outline: none;
-  //   overflow: hidden;
-  //   padding: 0px;
-  //   text-decoration: none;
-  //   user-select: auto;
-  //   transition: 0.2s max-width cubic-bezier(0.35, 0, 0.65, 1);
-  //   vertical-align: middle;
-  //   z-index: 0;
-
-  //   &__icon {
-  //     height: 45px;
-  //     width: 45px;
-  //     stroke-width: 45;
-  //     padding: 12.5px;
-  //     color: #fff;
-  //   }
-  // }
-
   .list {
     // position: absolute;
     width: 100%;
@@ -129,13 +135,38 @@ header {
       display: flex;
       align-items: center;
       height: 4rem;
-      margin-bottom: 0.5em;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.15px;
+      font-weight: 600;
+      font-size: 1.2em;
 
-      &:hover {
+      &:hover,
+      &:focus {
+        outline: none;
         cursor: pointer;
-        background-color: #f7f7f7;
+        background-color: #3b82f6;
+      }
+
+      &:hover,
+      &:focus,
+      &:hover mark,
+      &:focus mark {
         color: #fff;
-        background-color: rgb(6, 182, 212);
+      }
+
+      &:hover mark,
+      &:focus mark {
+        text-decoration-color: #fff;
+        font-weight: inherit;
+      }
+
+      mark {
+        background: none;
+        color: #3b82f6;
+        text-decoration: underline;
+        text-decoration-color: transparent;
+        text-decoration-thickness: 2px;
+        font-weight: 500;
       }
     }
   }
@@ -241,7 +272,19 @@ header {
   display: flex;
   flex-direction: column;
   background: rgba(0, 0, 0, 0.25);
-  padding: 12vh;
+  padding: $header-height 1rem;
+
+  @include media(">sm") {
+    padding: $header-height 1.5rem;
+  }
+
+  @include media(">md") {
+    padding: calc(7vh + #{$header-height}) 10vh;
+  }
+
+  @include media(">lg") {
+    padding: calc(10.5vh + #{$header-height}) 12vh;
+  }
 
   .modal {
     margin: 0 auto;
@@ -274,8 +317,9 @@ header {
       border-bottom-left-radius: 1rem;
       border-bottom-right-radius: 1rem;
       padding: 0 1.5rem 1.5rem;
-      overflow: auto;
-      min-height: 100px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      min-height: 120px;
     }
 
     .modal__footer {
