@@ -1,0 +1,13 @@
+.weather-icon {
+  width: 32px;
+  height: 32px;
+  // fill: #0070f3;
+
+  &--current {
+    height: 38px;
+    width: 38px;
+    display: inline-block;
+    margin-right: 10px;
+    fill: #0070f3;
+  }
+}

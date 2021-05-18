@@ -1,0 +1,28 @@
+.hourly-card {
+  @extend .flex-1;
+
+  &__box {
+    @extend .grid, .items-center, .justify-start;
+    grid-row-gap: 15px;
+    width: 100%;
+    grid-template-columns: 1fr;
+
+    &__hour,
+    &__temp {
+      @extend .flex, .items-center, .justify-center, .text-center;
+    }
+
+    &__hour {
+      color: #666;
+      font-size: 0.9em;
+    }
+
+    &__icon {
+      @extend .mx-auto;
+    }
+
+    &__temp {
+      font-size: 1.1em;
+    }
+  }
+}

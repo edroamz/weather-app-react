@@ -2,5 +2,18 @@
 @import "include-media";
 
 @import "base";
+
 @import "layout";
-@import "components";
+
+@import "components/common/modal";
+@import "components/currentWeather";
+@import "components/dailyCard";
+@import "components/dailyForecast";
+@import "components/footer";
+@import "components/header";
+@import "components/hourlyCard";
+@import "components/hourlyForecast";
+@import "components/map";
+@import "components/searchBox";
+@import "components/searchCity";
+@import "components/weatherIcon";
