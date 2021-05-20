@@ -25,12 +25,12 @@ $accents-8: #111;
 
 html {
   box-sizing: border-box;
-  height: 100%;
 }
 
 body,
 html {
   margin: 0;
+  height: 100%;
   background-color: $main-bg;
   color: $text-color;
   font-family: $font-sans;

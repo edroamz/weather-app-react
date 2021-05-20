@@ -11,16 +11,7 @@ import HourlyForecast from "./components/hourlyForecast";
 
 const App = () => {
   const [apiData, setApiData] = useState({});
-  const [city, setCity] = useState({
-    id: 5128581,
-    name: "New York",
-    country: "US",
-    lat: 40.7143,
-    lon: -74.006,
-  });
-
-  const { lat, lon } = city;
-  const units = "metric";
+  const [city, setCity] = useState(null);
 
   const GET_WEATHER_DATA = gql`
     query GetWeatherData($lat: Float!, $lon: Float!, $units: String!) {
@@ -62,11 +53,14 @@ const App = () => {
     }
   `;
 
+  const { lat, lon } = city || { lat: 0.0, lon: 0.0 };
+  const units = "metric";
+
   const { loading, error, data } = useQuery(GET_WEATHER_DATA, {
     variables: { lat, lon, units },
-    onCompleted: (data) => {
-      console.log(data.getWeatherData);
-      setApiData(data.getWeatherData);
+    onCompleted: ({ getWeatherData }) => {
+      console.log(getWeatherData);
+      setApiData(getWeatherData);
     },
   });
 
@@ -78,19 +72,22 @@ const App = () => {
       <Header></Header>
       <main>
         <SearchCity setCity={setCity}></SearchCity>
-        {city && apiData?.current?.weather && (
-          <CurrentWeather
-            city={city}
-            current={apiData.current}
-          ></CurrentWeather>
-        )}
-        {apiData?.hourly && (
-          <HourlyForecast hourly={apiData.hourly}></HourlyForecast>
-        )}
-
-        <Map lat={lat} lng={lon}></Map>
-        {apiData?.daily && (
-          <DailyForecast daily={apiData.daily}></DailyForecast>
+        {!city ? null : (
+          <>
+            {apiData?.current?.weather && (
+              <CurrentWeather
+                city={city}
+                current={apiData.current}
+              ></CurrentWeather>
+            )}
+            {apiData?.hourly && (
+              <HourlyForecast hourly={apiData.hourly}></HourlyForecast>
+            )}
+            {<Map lat={lat} lng={lon}></Map>}
+            {apiData?.daily && (
+              <DailyForecast daily={apiData.daily}></DailyForecast>
+            )}
+          </>
         )}
       </main>
       <Footer></Footer>
