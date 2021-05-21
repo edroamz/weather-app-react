@@ -8,194 +8,93 @@ import Text from "@components/common/text.jsx";
 
 export default function currentWeather({
   city: { name: cityName, country },
-  current,
+  current: { temp, pressure, humidity, feels_like, clouds, uvi, weather },
 }) {
-  const { temp, pressure, humidity, feels_like, clouds, uvi, weather } =
-    current;
   const { icon, main, description } = weather[0];
 
   return (
-    <section id="current-weather">
-      <div style={{ paddingTop: "2rem" }}>
+    <section id="current-weather" className="current-weather">
+      <Container>
         <div
-          className="container mx-auto"
           style={{
-            textAlign: "center",
-            fontSize: "1.1em",
+            paddingTop: "1em",
+            paddingBottom: "1em",
+            paddingLeft: "1rem",
+            paddingRight: "1rem",
           }}
         >
-          <LocationIcon
-            style={{
-              display: "inline-block",
-              marginRight: "5px",
-              height: "14px",
-              width: "14px",
-            }}
-          ></LocationIcon>
-          <Text
-            style={{
-              textDecorationLine: "underline",
-              textDecorationThickness: "from-font",
-            }}
-          >
-            {cityName}, {country}
-          </Text>
-        </div>
-      </div>
-      <div style={{ marginTop: "3rem" }}>
-        <div className="container mx-auto h-full">
-          <div
-            className="grid justify-center text-center"
-            style={{
-              gridTemplateColumns: "1fr",
-              margin: "0 auto",
-              rowGap: "15px",
-            }}
-          >
-            <div className="grid text-left" style={{ rowGap: "15px" }}>
+          <div className="current-weather__location ">
+            <LocationIcon className="current-weather__location__icon"></LocationIcon>
+            <Text className="current-weather__location__text">
+              {cityName}, {country}
+            </Text>
+          </div>
+          <div style={{ marginTop: "3rem" }}></div>
+
+          <div className="current-weather__info ">
+            <div className="current-weather__info__main ">
               <Heading
                 level={2}
-                className="text-center"
-                style={{
-                  fontSize: "38px",
-                  lineHeight: "38px",
-                  display: "flex",
-                  height: "38px",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
+                className="current-weather__info__main__heading"
               >
-                {current?.weather && (
-                  <WeatherIcon
-                    className="weather-icon--current"
-                    style={{ height: "inherit", marginRight: "15px" }}
-                    iconCode={icon}
-                  ></WeatherIcon>
-                )}{" "}
-                <Text style={{ marginRight: "15px" }}>{Math.round(temp)}°</Text>{" "}
-                <Text>{main}.</Text>
+                <WeatherIcon
+                  className="weather-icon--current"
+                  iconCode={icon}
+                ></WeatherIcon>{" "}
+                <Text>{Math.round(temp)}°</Text> <Text>{main}.</Text>
               </Heading>
-              <Paragraph
-                style={{
-                  fontSize: "1.25rem",
-                  textTransform: "capitalize",
-                }}
-              >
+              <Paragraph className="current-weather__info__main__description">
                 {description}
               </Paragraph>
 
-              <div
-                className="grid items-center justify-center"
-                style={{
-                  gridTemplateColumns: "repeat(9, auto)",
-                  columnGap: "0.75rem",
-                  fontSize: "0.95rem",
-                }}
-              >
-                <div>
-                  <Text
-                    className=""
-                    style={{
-                      fontSize: "1.1em",
-                    }}
-                  >
-                    Pressure:{" "}
-                    <Text
-                      className=""
-                      style={{
-                        marginLeft: "0.35em",
-                        color: "#666",
-                      }}
-                    >
-                      {pressure} hPa
-                    </Text>
+              <div className="current-weather__info__summary ">
+                <Text className="current-weather__info__summary__label">
+                  Pressure:{" "}
+                  <Text className="current-weather__info__summary__label__value">
+                    {pressure} hPa
                   </Text>
+                </Text>
+                <div className="current-weather__info__summary__separator">
+                  —
                 </div>
-                <div style={{ color: "hsl(203deg 18% 65%)" }}>—</div>
-                <div>
-                  <Text
-                    className=""
-                    style={{
-                      fontSize: "1.1em",
-                    }}
-                  >
-                    Humidity:{" "}
-                    <Text
-                      className=""
-                      style={{
-                        marginLeft: "0.35em",
-                        color: "#666",
-                      }}
-                    >
-                      {humidity}%
-                    </Text>
+                <Text className="current-weather__info__summary__label">
+                  Humidity:{" "}
+                  <Text className="current-weather__info__summary__label__value">
+                    {humidity}%
                   </Text>
+                </Text>
+                <div className="current-weather__info__summary__separator">
+                  —
                 </div>
-                <div style={{ color: "hsl(203deg 18% 65%)" }}>—</div>
-                <div>
-                  <Text
-                    className=""
-                    style={{
-                      fontSize: "1.1em",
-                    }}
-                  >
-                    Feels like:{" "}
-                    <Text
-                      className=""
-                      style={{
-                        marginLeft: "0.35em",
-                        color: "#666",
-                      }}
-                    >
-                      {Math.round(feels_like)}°
-                    </Text>
+                <Text className="current-weather__info__summary__label">
+                  Feels like:{" "}
+                  <Text className="current-weather__info__summary__label__value">
+                    {Math.round(feels_like)}°
                   </Text>
+                </Text>
+                <div className="current-weather__info__summary__separator">
+                  —
                 </div>
-                <div style={{ color: "hsl(203deg 18% 65%)" }}>—</div>
-                <div>
-                  <Text
-                    className=""
-                    style={{
-                      fontSize: "1.1em",
-                    }}
-                  >
-                    Clouds:{" "}
-                    <Text
-                      className=""
-                      style={{
-                        marginLeft: "0.35em",
-                        color: "#666",
-                      }}
-                    >
-                      {clouds}%
-                    </Text>
+                <Text className="current-weather__info__summary__label">
+                  Clouds:{" "}
+                  <Text className="current-weather__info__summary__label__value">
+                    {clouds}%
                   </Text>
+                </Text>
+                <div className="current-weather__info__summary__separator">
+                  —
                 </div>
-                <div style={{ color: "hsl(203deg 18% 65%)" }}>—</div>
-                <div>
-                  <Text
-                    className=""
-                    style={{
-                      fontSize: "1.1em",
-                    }}
-                  >
-                    UV index:{" "}
-                    <Text
-                      className=""
-                      style={{
-                        marginLeft: "0.35em",
-                        color: "#666",
-                      }}
-                    >
-                      {uvi}
-                    </Text>
+                <Text className="current-weather__info__summary__label">
+                  UV index:{" "}
+                  <Text className="current-weather__info__summary__label__value">
+                    {uvi}
                   </Text>
-                </div>
+                </Text>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

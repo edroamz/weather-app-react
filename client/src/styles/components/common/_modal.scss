@@ -44,6 +44,22 @@
       display: flex;
       align-items: center;
       margin: 0 1.5rem;
+
+      &__btn-close {
+        flex: none;
+        font-size: 0;
+        border-radius: 0.375rem;
+        background-color: #f9fafb;
+        border: 1px solid #d1d5db;
+        padding: 0.125rem 0.375rem;
+      }
+
+      &__btn-close::before {
+        content: "esc";
+        color: #9ca3af;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+      }
     }
 
     .modal__body {

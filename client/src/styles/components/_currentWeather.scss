@@ -1,0 +1,66 @@
+.current-weather {
+  &__location {
+    @extend .mx-auto;
+    text-align: center;
+    font-size: 1.1em;
+
+    &__icon {
+      display: inline-block;
+      margin-right: 5px;
+      height: 14px;
+      width: 14px;
+    }
+
+    &__text {
+      text-decoration-line: underline;
+      text-decoration-thickness: from-font;
+    }
+  }
+
+  &__info {
+    @extend .flex, .justify-center, .text-center;
+    grid-template-columns: 1fr;
+    margin: 0 auto;
+    row-gap: 15px;
+
+    &__main {
+      display: flex;
+      flex-direction: column;
+      row-gap: 15px;
+
+      &__heading {
+        text-align: center;
+        font-size: 38px;
+        line-height: 38px;
+        display: flex;
+        gap: 12px;
+        height: 38px;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &__description {
+        font-size: 1.25rem;
+        text-transform: capitalize;
+      }
+    }
+
+    &__summary {
+      @extend .flex, .items-center, .justify-center;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+
+      &__label {
+        font-size: 1.1em;
+        &__value {
+          margin-left: 0.35em;
+          color: #666;
+        }
+      }
+
+      &__separator {
+        color: hsl(203deg 18% 65%);
+      }
+    }
+  }
+}

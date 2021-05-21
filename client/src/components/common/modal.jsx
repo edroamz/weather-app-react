@@ -78,7 +78,9 @@ export default function modal({
                 onChange={(event) => setSearch(event.target.value)}
               />
             </div>
-            <button onClick={handleClose}>esc</button>
+            <button className="modal__header__btn-close" onClick={handleClose}>
+              cancel
+            </button>
           </header>
           <div className="modal__body">{children}</div>
           {/* <footer className="modal__footer">

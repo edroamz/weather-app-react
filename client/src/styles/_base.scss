@@ -45,6 +45,11 @@ html {
   box-sizing: inherit;
 }
 
+[role="button"],
+button {
+  cursor: pointer;
+}
+
 blockquote,
 dl,
 dd,

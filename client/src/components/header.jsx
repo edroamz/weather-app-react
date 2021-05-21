@@ -9,10 +9,7 @@ export default function header() {
       <Container>
         <div
           style={{
-            paddingTop: "1em",
-            paddingBottom: "1em",
-            paddingLeft: "1rem",
-            paddingRight: "1rem",
+            padding: "1em",
           }}
         >
           <Flex items="center" justify="center">
