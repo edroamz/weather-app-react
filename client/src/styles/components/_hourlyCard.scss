@@ -1,5 +1,10 @@
 .hourly-card {
   @extend .flex-1;
+  min-width: 4rem;
+
+  @include media(">=md") {
+    min-width: 5rem;
+  }
 
   &__box {
     @extend .grid, .items-center, .justify-start;

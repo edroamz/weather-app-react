@@ -5,6 +5,7 @@ import CurrentWeather from "@components/currentWeather.jsx";
 import Map from "@components/map.jsx";
 import DailyForecast from "@components/dailyForecast.jsx";
 import Footer from "@components/footer.jsx";
+import Text from "@components/common/text.jsx";
 
 import { useQuery, gql } from "@apollo/client";
 import HourlyForecast from "./components/hourlyForecast";
@@ -64,31 +65,31 @@ const App = () => {
     },
   });
 
-  if (loading) return "Loading...";
-  if (error) return `Error! ${error.message}`;
+  const renderAppContent = () => {
+    if (error) return <Text>{`Error! ${error.message}`}</Text>;
+
+    if (loading) return <Text>Loading...</Text>;
+
+    if (apiData && city)
+      return (
+        <>
+          <CurrentWeather
+            city={city}
+            current={apiData.current}
+          ></CurrentWeather>
+          <HourlyForecast hourly={apiData.hourly}></HourlyForecast>
+          <Map lat={lat} lng={lon}></Map>
+          <DailyForecast daily={apiData.daily}></DailyForecast>
+        </>
+      );
+  };
 
   return (
     <>
       <Header></Header>
       <main>
         <SearchCity setCity={setCity}></SearchCity>
-        {!city ? null : (
-          <>
-            {apiData?.current?.weather && (
-              <CurrentWeather
-                city={city}
-                current={apiData.current}
-              ></CurrentWeather>
-            )}
-            {apiData?.hourly && (
-              <HourlyForecast hourly={apiData.hourly}></HourlyForecast>
-            )}
-            {<Map lat={lat} lng={lon}></Map>}
-            {apiData?.daily && (
-              <DailyForecast daily={apiData.daily}></DailyForecast>
-            )}
-          </>
-        )}
+        {renderAppContent()}
       </main>
       <Footer></Footer>
     </>

@@ -1,6 +1,6 @@
 function GetHoursFromUnixUTCTimestamp(UnixTimestamp) {
   if (Number.isNaN(UnixTimestamp)) return NaN;
-  return new Date(UnixTimestamp * 1000).getUTCHours();
+  return new Date(UnixTimestamp * 1000).getHours();
 }
 
 function GetShortWeekdayFromUnixUTCTimestamp(
