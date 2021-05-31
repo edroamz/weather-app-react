@@ -1,0 +1,13 @@
+.hourly-forecast {
+  &__heading {
+    text-align: center;
+    font-size: 2rem;
+    line-height: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  &__wrapper {
+    display: inline-flex;
+    padding: 0 2rem;
+  }
+}

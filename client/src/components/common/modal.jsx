@@ -1,12 +1,11 @@
 import React, { useEffect, useRef } from "react";
-import SearchIcon from "@icons/search-outline.svg";
 
 export default function modal({
   show,
   handleClose,
-  search,
-  setSearch,
   children,
+  header = null,
+  footer = null,
 }) {
   const modalRef = useRef(null);
 
@@ -42,50 +41,19 @@ export default function modal({
     return (
       <div className="backdrop">
         <div className="modal" ref={modalRef}>
-          <header className="modal__header">
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "100%",
-                padding: 0,
-              }}
-            >
-              <SearchIcon
-                style={{
-                  verticalAlign: "middle",
-                  display: "inline-flex",
-                  height: "28px",
-                  width: "28px",
-                  strokeWidth: 40,
-                  color: "#0070f3",
-                }}
-              ></SearchIcon>
-              <input
-                type="text"
-                style={{
-                  width: "100%",
-                  height: "4.5rem",
-                  marginLeft: "25px",
-                  border: 0,
-                  outline: "none",
-                  fontSize: "1.2rem",
-                }}
-                placeholder="Search city..."
-                autoFocus
-                value={search}
-                onChange={(event) => setSearch(event.target.value)}
-              />
-            </div>
-            <button className="modal__header__btn-close" onClick={handleClose}>
-              cancel
-            </button>
-          </header>
+          {!header ? null : (
+            <header className="modal__header">
+              {header}
+              <button
+                className="modal__header__btn-close"
+                onClick={handleClose}
+              >
+                cancel
+              </button>
+            </header>
+          )}
           <div className="modal__body">{children}</div>
-          {/* <footer className="modal__footer">
-            <button onClick={handleClose}>Close</button>
-          </footer> */}
+          {!footer ? null : <footer className="modal__footer">{footer}</footer>}
         </div>
       </div>
     );

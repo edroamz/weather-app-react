@@ -17,8 +17,8 @@ export default function currentWeather({
       <Container>
         <div
           style={{
-            paddingTop: "1em",
-            paddingBottom: "1em",
+            paddingTop: "1rem",
+            paddingBottom: "1rem",
             paddingLeft: "1rem",
             paddingRight: "1rem",
           }}

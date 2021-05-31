@@ -1,7 +1,9 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Heading from "@components/common/heading.jsx";
 import Container from "@components/common/container.jsx";
-import Text from "@components/common/text.jsx";
+import TransparentBox from "@components/common/transparentBox.jsx";
+import ScrollableBox from "@components/common/scrollableBox.jsx";
+import VerticalLineSeparator from "@components/common/verticalLineSeparator.jsx";
 import HourlyCard from "@components/hourlyCard.jsx";
 import WeatherIcon from "@helpers/getOpenWeatherIconHelper.jsx";
 import { GetHoursFromUnixUTCTimestamp } from "@utils/dateUtils.js";
@@ -11,89 +13,47 @@ export default function hourlyForecast({ hourly }) {
     <section id="hourly-forecast" className="hourly-forecast">
       <div
         style={{
-          padding: "5em 0",
+          padding: "5rem 0 2rem",
         }}
       >
         <Container>
-          <div className=" mx-auto h-full">
-            <Heading
-              level={2}
-              style={{
-                marginBottom: "2rem",
-                textAlign: "center",
-                fontSize: "2rem",
-                padding: "0 1rem",
-              }}
-            >
+          <div style={{ padding: "0 1rem" }}>
+            <Heading level={2} className="hourly-forecast__heading">
               Hourly forecast
             </Heading>
           </div>
         </Container>
         <div style={{ position: "relative" }}>
-          <div
-            style={{
-              backgroundImage:
-                "linear-gradient(to right, #fff,hsla(0,0%,100%,0))",
-              width: "56px",
-              height: "100%",
-              display: "block",
-              position: "absolute",
-              left: 0,
-              zIndex: 10,
-            }}
-          ></div>
-          <div
-            style={{
-              backgroundImage:
-                "linear-gradient(to left, #fff,hsla(0,0%,100%,0))",
-              width: "56px",
-              height: "100%",
-              display: "block",
-              position: "absolute",
-              right: 0,
-              zIndex: 10,
-            }}
-          ></div>
-          <div
-            style={{
-              overflowX: "auto",
-              overflowY: "hidden",
-              maxWidth: "1980px",
-              margin: "0 auto",
-              padding: "0 0 1rem",
-            }}
-          >
-            <div style={{ display: "inline-flex", padding: "0 2rem" }}>
+          <TransparentBox from="left" to="right"></TransparentBox>
+          <TransparentBox from="right" to="left"></TransparentBox>
+          <ScrollableBox>
+            <div className="hourly-forecast__wrapper">
               {hourly?.map((i, index) => {
+                const hour =
+                  index === 0 ? "Now" : GetHoursFromUnixUTCTimestamp(i.dt);
+                const temp = Math.round(i.temp);
+                const icon = (
+                  <WeatherIcon
+                    className="weather-icon"
+                    iconCode={i.weather[0].icon}
+                  ></WeatherIcon>
+                );
+
                 return (
-                  <React.Fragment key={index}>
+                  <Fragment key={index}>
                     <HourlyCard
-                      hour={
-                        index === 0 ? "Now" : GetHoursFromUnixUTCTimestamp(i.dt)
-                      }
-                      temp={Math.round(i.temp)}
-                      icon={
-                        <WeatherIcon
-                          className="weather-icon"
-                          iconCode={i.weather[0].icon}
-                        ></WeatherIcon>
-                      }
+                      hour={hour}
+                      temp={temp}
+                      icon={icon}
                     ></HourlyCard>
                     {hourly.length - 1 !== index && (
-                      <span
-                        style={{
-                          height: "42px",
-                          width: "1px",
-                          alignSelf: "center",
-                          backgroundColor: "#eaeaea",
-                        }}
-                      ></span>
+                      <VerticalLineSeparator></VerticalLineSeparator>
                     )}
-                  </React.Fragment>
+                  </Fragment>
                 );
               })}
             </div>
-          </div>
+          </ScrollableBox>
         </div>
       </div>
     </section>

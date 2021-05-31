@@ -1,0 +1,15 @@
+.transparent-box {
+  width: 56px;
+  height: 100%;
+  display: block;
+  position: absolute;
+  z-index: 10;
+
+  &--left {
+    left: 0;
+  }
+
+  &--right {
+    right: 0;
+  }
+}

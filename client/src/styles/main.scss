@@ -6,6 +6,9 @@
 @import "layout";
 
 @import "components/common/modal";
+@import "components/common/transparentBox";
+@import "components/common/scrollableBox";
+@import "components/common/verticalLineSeparator";
 @import "components/currentWeather";
 @import "components/dailyCard";
 @import "components/dailyForecast";
@@ -14,6 +17,6 @@
 @import "components/hourlyCard";
 @import "components/hourlyForecast";
 @import "components/map";
-@import "components/searchBox";
+@import "components/modalSearchBox";
 @import "components/searchCity";
 @import "components/weatherIcon";

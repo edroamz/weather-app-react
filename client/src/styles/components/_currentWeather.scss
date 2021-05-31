@@ -49,6 +49,22 @@
       @extend .flex, .items-center, .justify-center;
       gap: 0.75rem;
       font-size: 0.95rem;
+      margin-top: 1rem;
+
+      @include media("<=sm") {
+        flex-direction: column;
+        background: #f9fafb;
+        padding: 1.5rem 1rem;
+        border-radius: 12px;
+        gap: 1rem;
+        width: 90vw;
+        border: 1px solid rgb(234, 234, 234);
+      }
+
+      @include media(">sm", "<=lg") {
+        gap: 0.5rem;
+        font-size: 0.85rem;
+      }
 
       &__label {
         font-size: 1.1em;
@@ -59,7 +75,11 @@
       }
 
       &__separator {
-        color: hsl(203deg 18% 65%);
+        color: rgb(234, 234, 234);
+
+        @include media("<=sm") {
+          display: none;
+        }
       }
     }
   }

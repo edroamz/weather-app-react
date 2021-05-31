@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function hourlyCard({ hour, temp, icon }) {
+export default function hourlyCard({ hour, temp, icon } = props) {
   return (
     <div className="hourly-card">
       <div className="hourly-card__box">
