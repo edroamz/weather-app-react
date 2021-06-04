@@ -1,6 +1,12 @@
-import React from "react";
+import * as React from "react";
 
-export default function hourlyCard({ hour, temp, icon } = props) {
+interface IHourlyCard {
+  hour: string | number;
+  temp: number;
+  icon: any;
+}
+
+export default function hourlyCard({ hour, temp, icon }: IHourlyCard) {
   return (
     <div className="hourly-card">
       <div className="hourly-card__box">

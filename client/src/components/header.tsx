@@ -1,7 +1,7 @@
-import React from "react";
-import Container from "@components/common/container.jsx";
-import Paragraph from "@components/common/paragraph.jsx";
-import Flex from "@components/common/flex.jsx";
+import * as React from "react";
+import Container from "./common/container";
+import Paragraph from "./common/paragraph";
+import Flex from "./common/flex";
 
 export default function header() {
   return (

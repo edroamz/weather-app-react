@@ -1,10 +1,23 @@
-import React, { useState } from "react";
-import Container from "@components/common/container.jsx";
+import * as React from "react";
+import { useState } from "react";
+import Container from "./common/container";
 import SearchIcon from "@icons/search-outline.svg";
-import Text from "@components/common/text.jsx";
-import ModalSearchBox from "@components/modalSearchBox.jsx";
+import Text from "./common/text";
+import ModalSearchBox from "./modalSearchBox";
 
-export default function searchCity({ setCity }) {
+interface ISearchCity {
+  setCity: React.Dispatch<React.SetStateAction<ICity>>;
+}
+
+interface ICity {
+  id?: number;
+  lat: number;
+  lon: number;
+  name: string;
+  country: string;
+}
+
+export default function searchCity({ setCity }: ISearchCity) {
   const [search, setSearch] = useState("");
   const [displaySearchModal, setdisplaySearchModal] = useState(false);
 

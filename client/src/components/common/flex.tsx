@@ -1,4 +1,12 @@
-import React from "react";
+import * as React from "react";
+
+interface IFlex {
+  items?: string;
+  justify?: string;
+  className?: string;
+  inline?: boolean;
+  children?: object;
+}
 
 export default function flex({
   items,
@@ -7,7 +15,7 @@ export default function flex({
   inline,
   children,
   ...rest
-}) {
+}: IFlex) {
   const flex = inline ? "inline-flex" : "flex";
   const itemsClass = items?.toLowerCase() === "center" ? "items-center" : "";
   const justifyClass =

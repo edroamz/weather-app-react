@@ -44,7 +44,7 @@ const RootQuery = new GraphQLObjectType({
           .slice(0, 5);
       },
     },
-    getWeatherData: {
+    OpenWeather: {
       type: OpenWeatherType,
       args: {
         lat: { type: GraphQLFloat },

@@ -1,15 +1,41 @@
-import React from "react";
-import Container from "@components/common/container.jsx";
-import Paragraph from "@components/common/paragraph.jsx";
+import * as React from "react";
+import Container from "./common/container";
+import Paragraph from "./common/paragraph";
 import LocationIcon from "@icons/navigate.svg";
-import Heading from "@components/common/heading.jsx";
-import WeatherIcon from "@helpers/getOpenWeatherIconHelper.jsx";
-import Text from "@components/common/text.jsx";
+import Heading from "./common/heading";
+import WeatherIcon from "./../helpers/getOpenWeatherIconHelper";
+import Text from "./common/text";
+
+interface ICurrentWeather {
+  city: ICity;
+  current: ICurrent;
+}
+
+interface ICity {
+  name: string;
+  country: string;
+}
+
+interface ICurrent {
+  temp: number;
+  pressure: number;
+  humidity: number;
+  feels_like: number;
+  clouds: number;
+  uvi: number;
+  weather: IWeather[];
+}
+
+interface IWeather {
+  icon: string;
+  main: string;
+  description: string;
+}
 
 export default function currentWeather({
   city: { name: cityName, country },
   current: { temp, pressure, humidity, feels_like, clouds, uvi, weather },
-}) {
+}: ICurrentWeather) {
   const { icon, main, description } = weather[0];
 
   return (
@@ -34,12 +60,12 @@ export default function currentWeather({
           <div className="current-weather__info ">
             <div className="current-weather__info__main ">
               <Heading
-                level={2}
+                level="h2"
                 className="current-weather__info__main__heading"
               >
                 <WeatherIcon
                   className="weather-icon--current"
-                  iconCode={icon}
+                  icon={icon}
                 ></WeatherIcon>{" "}
                 <Text>{Math.round(temp)}°</Text> <Text>{main}.</Text>
               </Heading>

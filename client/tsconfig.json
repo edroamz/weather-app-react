@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "types": ["google.maps", "node", "react", "react-dom"],
+    "baseUrl": "src",
+    "paths": {
+      "components/*": ["components/*"],
+      "styles/*": ["styles/*"],
+      "icons/*": ["assets/icons/*"],
+      "utils/*": ["utils/*"],
+      "helpers/*": ["helpers/*"]
+    },
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "es6",
+    "target": "es5",
+    "jsx": "react",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "strict": true
+  }
+}

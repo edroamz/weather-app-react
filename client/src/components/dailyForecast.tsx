@@ -1,27 +1,49 @@
-import React from "react";
-import Heading from "@components/common/heading.jsx";
-import DailyCard from "@components/dailyCard.jsx";
-import { GetShortWeekdayFromUnixUTCTimestamp } from "@utils/dateUtils.js";
-import WeatherIcon from "@helpers/getOpenWeatherIconHelper.jsx";
-import Container from "@components/common/container.jsx";
+import * as React from "react";
+import Heading from "./common/heading";
+import DailyCard from "./dailyCard";
+import { GetShortWeekdayFromUnixUTCTimestamp } from "../utils/dateUtils";
+import WeatherIcon from "./../helpers/getOpenWeatherIconHelper";
+import Container from "./common/container";
 
-export default function dailyForecast({ daily }) {
+interface IDailyList {
+  daily: IDaily[];
+}
+
+interface IDaily {
+  dt: number;
+  temp: ITemp;
+  weather: IWeather[];
+}
+
+interface ITemp {
+  min: number;
+  max: number;
+}
+
+interface IWeather {
+  id: number;
+  main: string;
+  description: string;
+  icon: string;
+}
+
+export default function dailyForecast({ daily }: IDailyList) {
   return (
     <section id="daily-forecast" className="daily-forecast">
       <Container>
         <div
           style={{
             paddingTop: "6rem",
-            paddingBottom: "4rem",
+            paddingBottom: "5rem",
             paddingLeft: "1rem",
             paddingRight: "1rem",
           }}
         >
-          <Heading level={2} className="daily-forecast__heading">
+          <Heading level="h2" className="daily-forecast__heading">
             Daily forecast
           </Heading>
           <div className="daily-forecast__wrapper">
-            {daily?.map((i, index) => {
+            {daily?.map((i: IDaily, index: number) => {
               const weekday =
                 index === 0
                   ? "Today"
@@ -36,7 +58,7 @@ export default function dailyForecast({ daily }) {
                   icon={
                     <WeatherIcon
                       className="weather-icon"
-                      iconCode={i.weather[0].icon}
+                      icon={i.weather[0].icon}
                     ></WeatherIcon>
                   }
                 ></DailyCard>

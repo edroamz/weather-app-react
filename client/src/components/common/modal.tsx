@@ -1,4 +1,13 @@
-import React, { useEffect, useRef } from "react";
+import * as React from "react";
+import { useEffect, useRef } from "react";
+
+interface IModal {
+  show: boolean;
+  handleClose: CallableFunction;
+  children: any;
+  header?: JSX.Element | null;
+  footer?: JSX.Element | null;
+}
 
 export default function modal({
   show,
@@ -6,18 +15,19 @@ export default function modal({
   children,
   header = null,
   footer = null,
-}) {
-  const modalRef = useRef(null);
+}: IModal) {
+  const modalRef = useRef<HTMLDivElement>(null);
 
-  const handleClickOutside = (event) => {
-    const { current: wrap } = modalRef;
-    if (!wrap?.contains(event.target)) {
+  const handleClickOutside = (event: any) => {
+    const { current } = modalRef;
+
+    if (!current?.contains(event.target)) {
       handleClose();
     }
   };
 
-  const handleEscKeyCap = (event) => {
-    if (event.keyCode === 27) {
+  const handleEscKeyCap = (event: KeyboardEvent) => {
+    if (event.key == "Escape" || event.code == "Escape") {
       handleClose();
     }
   };
@@ -46,7 +56,7 @@ export default function modal({
               {header}
               <button
                 className="modal__header__btn-close"
-                onClick={handleClose}
+                onClick={() => handleClose()}
               >
                 cancel
               </button>

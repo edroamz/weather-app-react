@@ -1,6 +1,18 @@
-import React from "react";
+import * as React from "react";
 
-export default function dailyCard({ weekday, maxTemp, minTemp, icon }) {
+interface IDailyCard {
+  weekday: string | number;
+  maxTemp: number;
+  minTemp: number;
+  icon: any;
+}
+
+export default function dailyCard({
+  weekday,
+  maxTemp,
+  minTemp,
+  icon,
+}: IDailyCard) {
   return (
     <div className="daily-card ">
       <div className="daily-card__box ">

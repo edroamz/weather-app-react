@@ -1,14 +1,32 @@
-import React, { Fragment } from "react";
-import Heading from "@components/common/heading.jsx";
-import Container from "@components/common/container.jsx";
-import TransparentBox from "@components/common/transparentBox.jsx";
-import ScrollableBox from "@components/common/scrollableBox.jsx";
-import VerticalLineSeparator from "@components/common/verticalLineSeparator.jsx";
-import HourlyCard from "@components/hourlyCard.jsx";
-import WeatherIcon from "@helpers/getOpenWeatherIconHelper.jsx";
-import { GetHoursFromUnixUTCTimestamp } from "@utils/dateUtils.js";
+import * as React from "react";
+import { Fragment } from "react";
+import Heading from "./common/heading";
+import Container from "./common/container";
+import TransparentBox from "./common/transparentBox";
+import ScrollableBox from "./common/scrollableBox";
+import VerticalLineSeparator from "./common/verticalLineSeparator";
+import HourlyCard from "./hourlyCard";
+import WeatherIcon from "./../helpers/getOpenWeatherIconHelper";
+import { GetHoursFromUnixUTCTimestamp } from "../utils/dateUtils";
 
-export default function hourlyForecast({ hourly }) {
+interface IHourlyList {
+  hourly: IHourly[];
+}
+
+interface IHourly {
+  dt: number;
+  temp: number;
+  weather: IWeather[];
+}
+
+interface IWeather {
+  id: number;
+  main: string;
+  description: string;
+  icon: string;
+}
+
+export default function hourlyForecast({ hourly }: IHourlyList) {
   return (
     <section id="hourly-forecast" className="hourly-forecast">
       <div
@@ -18,7 +36,7 @@ export default function hourlyForecast({ hourly }) {
       >
         <Container>
           <div style={{ padding: "0 1rem" }}>
-            <Heading level={2} className="hourly-forecast__heading">
+            <Heading level="h2" className="hourly-forecast__heading">
               Hourly forecast
             </Heading>
           </div>
@@ -28,14 +46,14 @@ export default function hourlyForecast({ hourly }) {
           <TransparentBox from="right" to="left"></TransparentBox>
           <ScrollableBox>
             <div className="hourly-forecast__wrapper">
-              {hourly?.map((i, index) => {
+              {hourly?.map((i: IHourly, index: number) => {
                 const hour =
                   index === 0 ? "Now" : GetHoursFromUnixUTCTimestamp(i.dt);
                 const temp = Math.round(i.temp);
                 const icon = (
                   <WeatherIcon
                     className="weather-icon"
-                    iconCode={i.weather[0].icon}
+                    icon={i.weather[0].icon}
                   ></WeatherIcon>
                 );
 

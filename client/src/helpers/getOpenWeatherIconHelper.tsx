@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import ClearSkyDayIcon from "@icons/sun-line.svg";
 import FewCloudsDayIcon from "@icons/sun-cloudy-line.svg";
 import ScatteredCloudsDayIcon from "@icons/cloudy-2-line.svg";
@@ -18,8 +18,17 @@ import ThunderstormNightIcon from "@icons/thunderstorms-line.svg";
 import SnowNightIcon from "@icons/snowy-line.svg";
 import MistNightIcon from "@icons/mist-line.svg";
 
-export default function WeatherIcon({ iconCode, ...rest }) {
-  const customIcons = {
+interface ICustomIcons {
+  [key: string]: JSX.Element;
+}
+
+interface IOpenWeatherIcon {
+  icon: string;
+  [key: string]: any;
+}
+
+export default function WeatherIcon({ icon, ...rest }: IOpenWeatherIcon) {
+  const customIcons: ICustomIcons = {
     "01d": <ClearSkyDayIcon {...rest}></ClearSkyDayIcon>,
     "02d": <FewCloudsDayIcon {...rest}></FewCloudsDayIcon>,
     "03d": <ScatteredCloudsDayIcon {...rest}></ScatteredCloudsDayIcon>,
@@ -40,5 +49,5 @@ export default function WeatherIcon({ iconCode, ...rest }) {
     "50n": <MistNightIcon {...rest}></MistNightIcon>,
   };
 
-  return customIcons[iconCode];
+  return customIcons[icon];
 }
