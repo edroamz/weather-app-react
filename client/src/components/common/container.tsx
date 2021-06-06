@@ -1,10 +1,10 @@
 import * as React from "react";
 
-interface IContainer {
+interface IContainerProps {
   [key: string]: any;
 }
 
-export default function container({ children, ...rest }: IContainer) {
+export default function container({ children, ...rest }: IContainerProps) {
   return (
     <div className="container" {...rest}>
       {children}

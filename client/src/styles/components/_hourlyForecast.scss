@@ -7,7 +7,7 @@
   }
 
   &__wrapper {
-    display: inline-flex;
+    @extend .inline-flex;
     padding: 0 2rem;
   }
 }

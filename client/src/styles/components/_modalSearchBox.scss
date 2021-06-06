@@ -1,13 +1,9 @@
 .modal-header-search-box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @extend .flex, .items-center, .justify-center;
   width: 100%;
   padding: 0;
 
   &__icon {
-    vertical-align: middle;
-    display: inline-flex;
     height: 28px;
     width: 28px;
     stroke-width: 40;
@@ -37,13 +33,11 @@
   }
 
   &__item {
-    display: block;
+    @extend .flex, .items-center;
     background: #f9fafb;
     border-radius: 0.5rem;
     box-shadow: 0 1px 2px 0 rgb(0 0 0 / 5%);
     padding: 0 1.25rem 0 1rem;
-    display: flex;
-    align-items: center;
     height: 4rem;
     margin-bottom: 0.5rem;
     letter-spacing: 0.15px;

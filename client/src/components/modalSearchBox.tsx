@@ -1,20 +1,21 @@
 import * as React from "react";
+import { Dispatch, SetStateAction } from "react";
 import Modal from "./common/modal";
 import SearchIcon from "@icons/search-outline.svg";
 import { useQuery, gql } from "@apollo/client";
 import Text from "./common/text";
 
-interface IModalSearchBox {
-  setCity: React.Dispatch<React.SetStateAction<ICity>>;
+interface IModalSearchBoxProps {
+  setCity: Dispatch<SetStateAction<ICity>>;
   search: string;
-  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  setSearch: Dispatch<SetStateAction<string>>;
   displaySearchModal: boolean;
-  setdisplaySearchModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setdisplaySearchModal: Dispatch<SetStateAction<boolean>>;
   closeSearchModal: CallableFunction;
 }
 
 interface ICity {
-  id?: number;
+  id: number;
   lat: number;
   lon: number;
   name: string;
@@ -48,7 +49,7 @@ export default function modalSearchBox({
   displaySearchModal,
   setdisplaySearchModal,
   closeSearchModal,
-}: IModalSearchBox) {
+}: IModalSearchBoxProps) {
   const SEARCH_CITY = gql`
     query SearchCityByName($search: String!) {
       searchCityByName(search: $search) {
@@ -80,7 +81,7 @@ export default function modalSearchBox({
     setdisplaySearchModal(false);
   }
 
-  function RenderHeader() {
+  function RenderModalHeader() {
     return (
       <div className="modal-header-search-box">
         <SearchIcon className="modal-header-search-box__icon"></SearchIcon>
@@ -96,7 +97,7 @@ export default function modalSearchBox({
     );
   }
 
-  const RenderBody = (search: string) => {
+  const RenderModalBody = (search: string) => {
     const { loading, error, data } = useQuery<ISearchCityData, ISearchCityVars>(
       SEARCH_CITY,
       {
@@ -108,77 +109,67 @@ export default function modalSearchBox({
     if (data) {
       return (
         <ul className="modal-body-search-list">
-          {RenderSearchItems(search, data)}
+          {(() => {
+            if (!search)
+              return (
+                <Text className="modal-body-search-list__text">
+                  No recent searches
+                </Text>
+              );
+            if (!data?.searchCityByName?.length)
+              return (
+                <Text className="modal-body-search-list__text">
+                  No results for{" "}
+                  <Text className="modal-body-search-list__text--bold">
+                    "{search}"
+                  </Text>
+                </Text>
+              );
+            return data?.searchCityByName?.map(
+              ({ id, name, country, coord: { lat, lon } }: ISearchCity) => {
+                return (
+                  <li
+                    key={id}
+                    tabIndex={0}
+                    className="modal-body-search-list__item"
+                    onClick={() => SelectCity(id, name, country, lat, lon)}
+                  >
+                    {(() => {
+                      name = name.toLowerCase();
+                      search = search.toLowerCase();
+
+                      const city = name.split(
+                        name.substring(
+                          name.substring(parseInt(name)).indexOf(search),
+                          name.indexOf(search) + search.length
+                        )
+                      );
+
+                      return (
+                        <Text style={{ textTransform: "capitalize" }}>
+                          {city[0]}
+                          <mark>{search}</mark>
+                          {city[1]}, {country}
+                        </Text>
+                      );
+                    })()}
+                  </li>
+                );
+              }
+            );
+          })()}
         </ul>
       );
     }
   };
 
-  interface SearchCity {
-    id: number;
-    name: string;
-    country: string;
-    coord: Coord;
-  }
-
-  interface Coord {
-    lat: number;
-    lon: number;
-  }
-
-  function RenderSearchItems(search: string, data: ISearchCityData) {
-    if (!search)
-      return (
-        <Text className="modal-body-search-list__text">No recent searches</Text>
-      );
-    if (!data?.searchCityByName?.length)
-      return (
-        <Text className="modal-body-search-list__text">
-          No results for{" "}
-          <Text className="modal-body-search-list__text--bold">"{search}"</Text>
-        </Text>
-      );
-    return data?.searchCityByName?.map(
-      ({ id, name, country, coord: { lat, lon } }: SearchCity) => {
-        return (
-          <li
-            key={id}
-            tabIndex={0}
-            className="modal-body-search-list__item"
-            onClick={() => SelectCity(id, name, country, lat, lon)}
-          >
-            {(() => {
-              name = name.toLowerCase();
-              search = search.toLowerCase();
-
-              const city = name.split(
-                name.substring(
-                  name.substring(parseInt(name)).indexOf(search),
-                  name.indexOf(search) + search.length
-                )
-              );
-
-              return (
-                <Text style={{ textTransform: "capitalize" }}>
-                  {city[0]}
-                  <mark>{search}</mark>
-                  {city[1]}, {country}
-                </Text>
-              );
-            })()}
-          </li>
-        );
-      }
-    );
-  }
-
   return (
     <Modal
       show={displaySearchModal}
       handleClose={closeSearchModal}
-      header={RenderHeader()}
+      header={RenderModalHeader()}
     >
-      {RenderBody(search)}
+      {RenderModalBody(search)}
     </Modal>
   );
 }

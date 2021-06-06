@@ -9,7 +9,7 @@ import HourlyCard from "./hourlyCard";
 import WeatherIcon from "./../helpers/getOpenWeatherIconHelper";
 import { GetHoursFromUnixUTCTimestamp } from "../utils/dateUtils";
 
-interface IHourlyList {
+interface IHourlyListProps {
   hourly: IHourly[];
 }
 
@@ -26,7 +26,7 @@ interface IWeather {
   icon: string;
 }
 
-export default function hourlyForecast({ hourly }: IHourlyList) {
+export default function hourlyForecast({ hourly }: IHourlyListProps) {
   return (
     <section id="hourly-forecast" className="hourly-forecast">
       <div

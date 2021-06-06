@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useRef } from "react";
 
-interface IModal {
+interface IModalProps {
   show: boolean;
   handleClose: CallableFunction;
   children: any;
@@ -15,7 +15,7 @@ export default function modal({
   children,
   header = null,
   footer = null,
-}: IModal) {
+}: IModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (event: any) => {

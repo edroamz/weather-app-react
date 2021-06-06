@@ -5,19 +5,19 @@ import SearchIcon from "@icons/search-outline.svg";
 import Text from "./common/text";
 import ModalSearchBox from "./modalSearchBox";
 
-interface ISearchCity {
+interface ISearchCityProps {
   setCity: React.Dispatch<React.SetStateAction<ICity>>;
 }
 
 interface ICity {
-  id?: number;
+  id: number;
   lat: number;
   lon: number;
   name: string;
   country: string;
 }
 
-export default function searchCity({ setCity }: ISearchCity) {
+export default function searchCity({ setCity }: ISearchCityProps) {
   const [search, setSearch] = useState("");
   const [displaySearchModal, setdisplaySearchModal] = useState(false);
 

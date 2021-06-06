@@ -3,7 +3,7 @@ import { useState } from "react";
 import Header from "./components/header";
 import SearchCity from "./components/searchCity";
 import CurrentWeather from "./components/currentWeather";
-import Map from "./components/map";
+import GMaps from "./components/common/gMaps";
 import DailyForecast from "./components/dailyForecast";
 import HourlyForecast from "./components/hourlyForecast";
 import Footer from "./components/footer";
@@ -20,6 +20,7 @@ const App = () => {
     daily: null,
   });
   const [city, setCity] = useState<ICity>({
+    id: 0,
     lat: 0.0,
     lon: 0.0,
     name: "",
@@ -27,6 +28,7 @@ const App = () => {
   });
 
   interface ICity {
+    id: number;
     lat: number;
     lon: number;
     name: string;
@@ -155,12 +157,10 @@ const App = () => {
 
           if (loading) return <Text>Loading...</Text>;
 
-          if (!city.name) {
-            return null;
-          } else {
+          if (city.id) {
             return (
               <>
-                {apiData.current && city ? (
+                {apiData.current ? (
                   <CurrentWeather
                     city={city}
                     current={apiData.current}
@@ -169,7 +169,7 @@ const App = () => {
                 {apiData.hourly?.length ? (
                   <HourlyForecast hourly={apiData.hourly}></HourlyForecast>
                 ) : null}
-                {lat && lon ? <Map lat={lat} lng={lon}></Map> : null}
+                {lat && lon ? <GMaps lat={lat} lng={lon}></GMaps> : null}
                 {apiData.daily?.length ? (
                   <DailyForecast daily={apiData.daily}></DailyForecast>
                 ) : null}

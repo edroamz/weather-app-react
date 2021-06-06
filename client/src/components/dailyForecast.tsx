@@ -5,7 +5,7 @@ import { GetShortWeekdayFromUnixUTCTimestamp } from "../utils/dateUtils";
 import WeatherIcon from "./../helpers/getOpenWeatherIconHelper";
 import Container from "./common/container";
 
-interface IDailyList {
+interface IDailyListProps {
   daily: IDaily[];
 }
 
@@ -27,7 +27,7 @@ interface IWeather {
   icon: string;
 }
 
-export default function dailyForecast({ daily }: IDailyList) {
+export default function dailyForecast({ daily }: IDailyListProps) {
   return (
     <section id="daily-forecast" className="daily-forecast">
       <Container>

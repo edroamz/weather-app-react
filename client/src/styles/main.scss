@@ -1,22 +1,26 @@
-@import "~/node_modules/modern-normalize/modern-normalize.css";
 @import "include-media";
+@import "utilities/variables";
+@import "utilities/mixins";
 
-@import "base";
+@import "base/reset";
+@import "base/typography";
 
-@import "layout";
+@import "layout/root";
+@import "layout/flexboxAndGrid";
+@import "layout/header";
+@import "layout/footer";
 
+@import "components/common/container";
 @import "components/common/modal";
 @import "components/common/transparentBox";
 @import "components/common/scrollableBox";
 @import "components/common/verticalLineSeparator";
+@import "components/common/gMaps";
 @import "components/currentWeather";
 @import "components/dailyCard";
 @import "components/dailyForecast";
-@import "components/footer";
-@import "components/header";
 @import "components/hourlyCard";
 @import "components/hourlyForecast";
-@import "components/map";
 @import "components/modalSearchBox";
 @import "components/searchCity";
 @import "components/weatherIcon";

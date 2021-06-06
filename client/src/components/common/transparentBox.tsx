@@ -1,11 +1,16 @@
 import * as React from "react";
 
-export default function transparentBox(args: {
+interface ITransparentBoxProps {
   from: string;
   to: string;
   bg?: string;
-}) {
-  const { from, to, bg = "#fff" } = args;
+}
+
+export default function transparentBox({
+  from,
+  to,
+  bg = "#fff",
+}: ITransparentBoxProps) {
   return (
     <div
       className={`transparent-box transparent-box--${from}`}

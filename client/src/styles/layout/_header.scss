@@ -1,0 +1,33 @@
+.header {
+  background-color: #111111;
+  height: $header-height;
+
+  @include media("<=md") {
+    $header-height: 70px;
+    height: $header-height;
+  }
+
+  div {
+    height: 100%;
+  }
+
+  .header-box {
+    @extend .flex, .items-center, .justify-center;
+
+    &__paragraph {
+      color: #fff;
+      text-align: center;
+      font-size: 0.95rem;
+      line-height: 1.35rem;
+
+      @include media("<=lg") {
+        text-align: left;
+      }
+
+      &__link {
+        color: #00f6ff;
+        text-decoration: none;
+      }
+    }
+  }
+}

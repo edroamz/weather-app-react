@@ -7,14 +7,14 @@
   }
 
   &__box {
-    @extend .grid, .items-center, .justify-start;
+    @extend .grid, .items-center, .justify-start, .grid-cols-1;
     grid-row-gap: 15px;
     width: 100%;
-    grid-template-columns: 1fr;
 
     &__hour,
     &__temp {
-      @extend .flex, .items-center, .justify-center, .text-center;
+      @extend .flex, .items-center, .justify-center;
+      text-align: center;
     }
 
     &__hour {
@@ -23,7 +23,7 @@
     }
 
     &__icon {
-      @extend .mx-auto;
+      margin: 0 auto;
     }
 
     &__temp {

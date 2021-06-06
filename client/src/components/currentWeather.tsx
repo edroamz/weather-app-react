@@ -6,7 +6,7 @@ import Heading from "./common/heading";
 import WeatherIcon from "./../helpers/getOpenWeatherIconHelper";
 import Text from "./common/text";
 
-interface ICurrentWeather {
+interface ICurrentWeatherProps {
   city: ICity;
   current: ICurrent;
 }
@@ -35,7 +35,7 @@ interface IWeather {
 export default function currentWeather({
   city: { name: cityName, country },
   current: { temp, pressure, humidity, feels_like, clouds, uvi, weather },
-}: ICurrentWeather) {
+}: ICurrentWeatherProps) {
   const { icon, main, description } = weather[0];
 
   return (

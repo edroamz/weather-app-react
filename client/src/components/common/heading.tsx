@@ -1,11 +1,11 @@
 import * as React from "react";
 
-interface CompProps {
+interface IHeadingProps {
   level: keyof JSX.IntrinsicElements;
 }
 
 const Heading: React.FunctionComponent<
-  CompProps & React.HTMLAttributes<HTMLOrSVGElement>
+  IHeadingProps & React.HTMLAttributes<HTMLOrSVGElement>
 > = ({ level: HeadingType = "h1", children, ...rest }) => {
   return <HeadingType {...rest}>{children}</HeadingType>;
 };

@@ -5,8 +5,7 @@
   padding: 1rem 0;
 
   &__btn-search {
-    display: flex;
-    align-items: center;
+    @extend .flex, .items-center;
     background-color: inherit;
     border: 0;
     height: 40px;
@@ -25,8 +24,6 @@
     }
 
     &__icon {
-      vertical-align: middle;
-      display: inline-flex;
       height: 24px;
       width: 24px;
       stroke-width: 35;

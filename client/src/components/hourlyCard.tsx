@@ -1,12 +1,12 @@
 import * as React from "react";
 
-interface IHourlyCard {
+interface IHourlyCardProps {
   hour: string | number;
   temp: number;
   icon: any;
 }
 
-export default function hourlyCard({ hour, temp, icon }: IHourlyCard) {
+export default function hourlyCard({ hour, temp, icon }: IHourlyCardProps) {
   return (
     <div className="hourly-card">
       <div className="hourly-card__box">

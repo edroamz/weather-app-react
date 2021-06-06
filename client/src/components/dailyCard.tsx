@@ -1,6 +1,6 @@
 import * as React from "react";
 
-interface IDailyCard {
+interface IDailyCardProps {
   weekday: string | number;
   maxTemp: number;
   minTemp: number;
@@ -12,7 +12,7 @@ export default function dailyCard({
   maxTemp,
   minTemp,
   icon,
-}: IDailyCard) {
+}: IDailyCardProps) {
   return (
     <div className="daily-card ">
       <div className="daily-card__box ">

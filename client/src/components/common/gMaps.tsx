@@ -2,12 +2,12 @@ import * as React from "react";
 import { useRef, useEffect } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 
-interface ILatLng {
+interface IGMapsProps {
   lat: number;
   lng: number;
 }
 
-export default function map({ lat, lng }: ILatLng) {
+export default function gMaps({ lat, lng }: IGMapsProps) {
   const googleMapsKey = process.env.GOOGLE_MAPS_API_KEY;
   const mapRef = useRef<HTMLInputElement | null>(null);
   const mapOptions = {

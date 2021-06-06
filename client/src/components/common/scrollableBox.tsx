@@ -1,9 +1,9 @@
 import * as React from "react";
 
-interface IScrollableBox {
+interface IScrollableBoxProps {
   [key: string]: any;
 }
 
-export default function scrollableBox({ children }: IScrollableBox) {
+export default function scrollableBox({ children }: IScrollableBoxProps) {
   return <div className="scrollable-box">{children}</div>;
 }

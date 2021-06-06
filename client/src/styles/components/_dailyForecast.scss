@@ -1,6 +1,4 @@
 .daily-forecast {
-  // background-color: #f9fafb;
-
   &__heading {
     text-align: center;
     font-size: 2rem;
@@ -9,12 +7,11 @@
   }
 
   &__wrapper {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    @extend .grid, .grid-cols-3;
     gap: 0.75rem;
 
     @include media(">=sm") {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      @include grid-columns(4);
     }
 
     @include media(">=md") {
@@ -22,7 +19,7 @@
     }
 
     @include media(">lg") {
-      grid-template-columns: repeat(8, minmax(0, 1fr));
+      @include grid-columns(8);
     }
   }
 }

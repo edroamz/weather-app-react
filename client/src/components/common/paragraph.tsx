@@ -1,9 +1,9 @@
 import * as React from "react";
 
-interface IParagraph {
+interface IParagraphProps {
   [key: string]: any;
 }
 
-export default function Paragraph({ children, ...rest }: IParagraph) {
+export default function Paragraph({ children, ...rest }: IParagraphProps) {
   return <p {...rest}>{children}</p>;
 }

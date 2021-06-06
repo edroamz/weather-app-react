@@ -1,40 +1,96 @@
-#root {
-  height: 100%;
+/*#region FLEXBOX */
+
+.flex {
   display: flex;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+/*#region Flex Direction */
+/* Utilities for controlling the direction of flex items. */
+
+.flex-col {
   flex-direction: column;
 }
 
-.container {
-  width: 100%;
-  margin: 0 auto;
-
-  @include media("<=sm") {
-    max-width: 640px;
-  }
-
-  @include media(">sm", "<=md") {
-    max-width: 768px;
-  }
-
-  @include media(">md", "<=lg") {
-    max-width: 1024px;
-  }
-
-  @include media(">lg") {
-    max-width: 1280px;
-  }
+.flex-col-reverse {
+  flex-direction: column-reverse;
 }
 
-.overflow-hidden {
-  overflow: hidden;
+.flex-row {
+  flex-direction: row;
 }
 
-.bg-light-grey {
-  background-color: $light-grey;
+.flex-row-reverse {
+  flex-direction: row-reverse;
+}
+/*#endregion*/
+
+/*#region Flex */
+/* Utilities for controlling how flex items both grow and shrink. */
+
+.flex-auto {
+  flex: 1 1 auto;
 }
 
+.flex-1 {
+  flex: 1 1 0%;
+}
+
+.flex-initial {
+  flex: 0 1 auto;
+}
+.flex-none {
+  flex: none;
+}
+/*#endregion*/
+
+/*#region Flex Grow */
+/* Utilities for controlling how flex items grow. */
+.flex-grow-0 {
+  flex-grow: 0;
+}
+.flex-grow {
+  flex-grow: 1;
+}
+/*#endregion*/
+
+/*#region Flex Shrink */
+/* Utilities for controlling how flex items shrink. */
+
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+.flex-shrink {
+  flex-shrink: 1;
+}
+/*#endregion*/
+
+/*#region Flex Wrap */
+/* Utilities for controlling how flex items wrap. */
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.flex-wrap-reverse {
+  flex-wrap: wrap-reverse;
+}
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+/*#endregion*/
+
+/*#endregion*/
+
+/*#region GRID */
 .grid {
   display: grid;
+}
+
+.inline-grid {
+  display: inline-grid;
 }
 
 /*#region Grid Template Columns */
@@ -81,7 +137,7 @@
 }
 /*#endregion */
 
-/*#region Grid Column Start / End */
+/*#region Grid Column Start/End */
 /* Utilities for controlling how elements are sized and placed across grid columns. */
 
 .col-auto {
@@ -212,87 +268,9 @@
 }
 /*#endregion */
 
-.flex {
-  display: flex;
-}
+/*#endregion */
 
-/*#region Flex Direction*/
-/* Utilities for controlling the direction of flex items. */
-
-.flex-col {
-  flex-direction: column;
-}
-
-.flex-col-reverse {
-  flex-direction: column-reverse;
-}
-
-.flex-row {
-  flex-direction: row;
-}
-
-.flex-row-reverse {
-  flex-direction: row-reverse;
-}
-
-/*#endregion*/
-
-/*#region Flex */
-/* Utilities for controlling how flex items both grow and shrink. */
-
-.flex-auto {
-  flex: 1 1 auto;
-}
-
-.flex-1 {
-  flex: 1 1 0%;
-}
-
-.flex-initial {
-  flex: 0 1 auto;
-}
-.flex-none {
-  flex: none;
-}
-
-/*#endregion*/
-
-/*#region Flex Grow */
-/* Utilities for controlling how flex items grow. */
-.flex-grow-0 {
-  flex-grow: 0;
-}
-.flex-grow {
-  flex-grow: 1;
-}
-/*#endregion*/
-
-/*#region Flex Shrink */
-/* Utilities for controlling how flex items shrink. */
-
-.flex-shrink-0 {
-  flex-shrink: 0;
-}
-.flex-shrink {
-  flex-shrink: 1;
-}
-
-/*#endregion*/
-
-/*#region Flex Wrap*/
-/* Utilities for controlling how flex items wrap. */
-
-.flex-wrap {
-  flex-wrap: wrap;
-}
-.flex-wrap-reverse {
-  flex-wrap: wrap-reverse;
-}
-.flex-nowrap {
-  flex-wrap: nowrap;
-}
-
-/*#endregion*/
+/*#region FLEXBOX AND GRID */
 
 /*#region Order */
 /* Utilities for controlling the order of flex and grid items. */
@@ -342,8 +320,7 @@
 .order-none {
   order: 0;
 }
-
-/*#endregion*/
+/*#endregion */
 
 /*#region Justify Content*/
 /* Utilities for controlling how flex and grid items are positioned along a container's main axis. */
@@ -386,4 +363,6 @@
 .items-stretch {
   align-items: stretch;
 }
+/*#endregion */
+
 /*#endregion */
