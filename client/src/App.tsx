@@ -1,15 +1,16 @@
 import * as React from "react";
 import { useState } from "react";
-import Header from "./components/header";
-import SearchCity from "./components/searchCity";
-import CurrentWeather from "./components/currentWeather";
-import GMaps from "./components/common/gMaps";
-import DailyForecast from "./components/dailyForecast";
-import HourlyForecast from "./components/hourlyForecast";
-import Footer from "./components/footer";
-import Text from "./components/common/text";
-
+import Text from "@Components/Text";
+import Header from "@Layout/Header";
+import Footer from "@Layout/Footer";
 import { useQuery, gql } from "@apollo/client";
+import {
+  SearchCity,
+  CurrentWeather,
+  HourlyForecast,
+  DailyForecast,
+} from "@Pages/HomePage";
+import GoogleMaps from "@Components/GoogleMaps";
 
 const App = () => {
   const [apiData, setApiData] = useState<IOpenWeather>({
@@ -136,6 +137,7 @@ const App = () => {
     {
       variables: { lat, lon, units },
       onCompleted: ({ OpenWeather }: IOpenWeatherData) => {
+        console.log(OpenWeather);
         setApiData({
           lat: OpenWeather.lat,
           lon: OpenWeather.lon,
@@ -169,7 +171,13 @@ const App = () => {
                 {apiData.hourly?.length ? (
                   <HourlyForecast hourly={apiData.hourly}></HourlyForecast>
                 ) : null}
-                {lat && lon ? <GMaps lat={lat} lng={lon}></GMaps> : null}
+                {lat && lon ? (
+                  <GoogleMaps
+                    lat={lat}
+                    lng={lon}
+                    title={`${city.name.toUpperCase()}, ${city.country.toUpperCase()}`}
+                  ></GoogleMaps>
+                ) : null}
                 {apiData.daily?.length ? (
                   <DailyForecast daily={apiData.daily}></DailyForecast>
                 ) : null}

@@ -13,11 +13,11 @@ module.exports = {
   resolve: {
     extensions: [".tsx", ".ts", ".js", ".jsx", ".json"],
     alias: {
-      "@components": path.resolve(__dirname, "../src/components/"),
-      "@styles": path.resolve(__dirname, "../src/styles/"),
-      "@icons": path.resolve(__dirname, "../src/assets/icons/"),
-      "@utils": path.resolve(__dirname, "../src/utils/"),
-      "@helpers": path.resolve(__dirname, "../src/helpers/"),
+      "@Components": path.resolve(__dirname, "../src/components/"),
+      "@Layout": path.resolve(__dirname, "../src/layout/"),
+      "@Pages": path.resolve(__dirname, "../src/pages/"),
+      "@Styles": path.resolve(__dirname, "../src/global/styles/"),
+      "@Utils": path.resolve(__dirname, "../src/utils/"),
     },
   },
   module: {

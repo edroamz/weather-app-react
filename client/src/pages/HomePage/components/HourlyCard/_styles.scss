@@ -1,0 +1,43 @@
+.hourly-card {
+  @extend .flex-1;
+  min-width: 4rem;
+
+  @include media(">=md") {
+    min-width: 5rem;
+  }
+
+  &__box {
+    @extend .grid, .items-center, .justify-start, .grid-cols-1;
+    grid-row-gap: 15px;
+    width: 100%;
+
+    &__hour,
+    &__temp {
+      @extend .flex, .items-center, .justify-center;
+      text-align: center;
+    }
+
+    &__hour {
+      color: #666;
+      font-size: 0.9em;
+      padding: 4px 0;
+
+      &--current {
+        background-color: rgb(238, 242, 255);
+        color: #0070f3;
+        font-weight: 500;
+        width: 80%;
+        border-radius: 9999px;
+        margin: 0 auto;
+      }
+    }
+
+    &__icon {
+      margin: 0 auto;
+    }
+
+    &__temp {
+      font-size: 1.1em;
+    }
+  }
+}
